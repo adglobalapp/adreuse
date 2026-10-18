@@ -17,9 +17,17 @@
     background var(--duration-normal);
 }
 
+.cat > * {
+  opacity: 0.7;
+  transition: opacity var(--duration-normal);
+}
+
 .cat:hover {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface-hover);
+  border-color: var(--color-brand-alpha);
+}
+
+.cat:hover > * {
+  opacity: 1;
 }
 
 .cat__index {

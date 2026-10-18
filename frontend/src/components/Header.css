@@ -1,7 +1,11 @@
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 50;
   height: var(--header-height);
+  background: rgb(12 12 12 / 0.9);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .header__inner {
@@ -27,7 +31,7 @@
   border: 0;
   background: none;
   font-size: var(--font-size-2xs);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-black);
   letter-spacing: 0.1em;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -53,7 +57,7 @@
   border: 0;
   background: none;
   cursor: pointer;
-  font-size: var(--font-size-2xs);
+  font-size: 0.625rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -63,7 +67,7 @@
 
 .header__nav a:hover,
 .header__link:hover {
-  color: var(--color-text);
+  color: var(--color-brand-hover);
 }
 
 .header__nav a.active {

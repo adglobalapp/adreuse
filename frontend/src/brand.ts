@@ -18,7 +18,14 @@ export const brand = {
   currency: 'HUF',
 
   social: [
-    { label: 'Facebook', href: 'https://www.facebook.com', icon: 'facebook' },
-    { label: 'Instagram', href: 'https://www.instagram.com', icon: 'instagram' },
+    { label: 'LinkedIn', href: 'https://uk.linkedin.com/company/adglobalapp', icon: 'linkedin' },
   ] satisfies { label: string; href: string; icon: IconName }[],
+
+  /** Anyacég: a láblécben a logója és a jogi sor. */
+  parent: {
+    name: 'AdGlobalApp',
+    company: 'AdGlobalApp Ltd.',
+    url: 'https://www.adglobalapp.com',
+    logoSrc: '/adapp-logo.png',
+  },
 };

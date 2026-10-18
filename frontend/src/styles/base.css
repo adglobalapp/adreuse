@@ -31,7 +31,7 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-black);
   line-height: var(--line-height-tight);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
@@ -79,8 +79,8 @@ svg {
 .label {
   display: inline-block;
   font-size: var(--font-size-2xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-label);
+  font-weight: var(--font-weight-black);
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
@@ -108,10 +108,6 @@ svg {
 .accent {
   color: var(--color-brand-500);
   font-style: italic;
-  background: var(--color-brand-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 /* Scroll reveal (lásd utils/reveal.js) */

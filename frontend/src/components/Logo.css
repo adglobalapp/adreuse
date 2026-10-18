@@ -3,7 +3,7 @@
   align-items: center;
   gap: 0.3em;
   font-family: var(--font-logo);
-  font-size: var(--font-size-2xl);
+  font-size: 2.25rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-brand-500);
   background: linear-gradient(180deg, var(--logo-gradient-from), var(--logo-gradient-to));
@@ -36,6 +36,7 @@
 .logo--image img {
   display: block;
   height: var(--logo-height);
+  max-height: calc(var(--header-height) - var(--space-5));
   width: auto;
 }
 

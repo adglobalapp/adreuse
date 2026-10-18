@@ -1,7 +1,6 @@
 import { brand } from '../brand';
 import { useI18n } from '../i18n';
 import { Icon } from './Icon';
-import { LogoMark } from './Logo';
 import './Footer.css';
 
 export function Footer() {
@@ -25,13 +24,13 @@ export function Footer() {
               </a>
             ))}
           </div>
-          <span className="footer__mark">
-            <LogoMark size={44} />
-          </span>
+          <a className="footer__signoff" href={brand.parent.url} target="_blank" rel="noreferrer" aria-label={brand.parent.name}>
+            <img src={brand.parent.logoSrc} alt={brand.parent.name} />
+          </a>
         </div>
 
         <p className="footer__copy">
-          © {year} {brand.name}. {t.footer.rights}
+          {brand.parent.company} {t.footer.registered} © {year} {t.footer.rights}
         </p>
       </div>
     </footer>

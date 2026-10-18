@@ -1,5 +1,5 @@
 .footer {
-  padding-block: var(--space-8) var(--space-6);
+  padding-block: var(--space-8);
   border-top: 1px solid var(--color-border);
   background: var(--color-bg-raised);
 }
@@ -17,11 +17,12 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: var(--font-size-2xs);
+  font-size: 0.625rem;
   font-weight: var(--font-weight-bold);
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-text-subtle);
+  color: var(--color-text);
+  opacity: 0.3;
 }
 
 .footer__right {
@@ -32,20 +33,58 @@
 
 .footer__social {
   display: flex;
-  gap: var(--space-5);
+  gap: var(--space-6);
   color: var(--color-text-muted);
 }
 
-.footer__social a:hover {
-  color: var(--color-text);
+.footer__social a {
+  transition: color var(--duration-normal);
 }
 
-.footer__mark {
-  color: var(--color-border-strong);
+.footer__social a:hover {
+  color: var(--color-brand-hover);
+}
+
+.footer__signoff img {
+  display: block;
+  height: 40px;
+  width: auto;
+  filter: grayscale(1);
+  opacity: 0.4;
+  transition:
+    filter var(--duration-normal),
+    opacity var(--duration-normal);
+}
+
+.footer__signoff:hover img {
+  filter: none;
+  opacity: 1;
 }
 
 .footer__copy {
   grid-column: 1 / -1;
-  font-size: var(--font-size-xs);
-  color: var(--color-text-subtle);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-muted);
+  opacity: 0.3;
+}
+
+@media (max-width: 767px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .footer__tags {
+    justify-content: center;
+  }
+
+  .footer__right {
+    justify-items: center;
+  }
 }

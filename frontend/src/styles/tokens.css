@@ -1,6 +1,6 @@
 /*
- * Design tokens – az AdApp landing arculatából
- * (sötét felület, piros akcentus, szűk nagybetűs címsorok, ritkított címkék).
+ * Design tokens – az AdGlobalApp arculatából
+ * (sötét felület, #dc2b19 piros akcentus, extra vastag szűk címsorok, ritkított címkék).
  * Az egész oldal ezekből a változókból dolgozik: új arculatnál elég ezt a fájlt
  * (és a betűtípusokat az index.html-ben) lecserélni.
  */
@@ -9,10 +9,10 @@
   --color-brand-from: #ea1f24;
   --color-brand-to: #a11d1e;
   --color-brand-gradient: linear-gradient(180deg, var(--color-brand-from), var(--color-brand-to));
-  --color-brand-500: var(--color-brand-from); /* egyszínű piros: címkék, keretek, kiemelések */
+  --color-brand-500: #dc2b19; /* egyszínű piros: címkék, kiemelt szavak, aktív állapot */
   --color-brand-600: var(--color-brand-to);
   --color-brand-hover: #dc2b19;
-  --color-brand-alpha: rgb(234 31 36 / 0.14);
+  --color-brand-alpha: rgb(220 43 25 / 0.4); /* kártyakeret hoverre */
 
   /* Logó: a felirat színátmenete és betűtípusa */
   --logo-gradient-from: var(--color-brand-from);
@@ -20,13 +20,13 @@
   --font-logo: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
   /* Surfaces & text */
-  --color-bg: #0d0d0d;
-  --color-bg-raised: #121212;
+  --color-bg: #0c0c0c;
+  --color-bg-raised: #111111;
   --color-surface: #141414;
-  --color-surface-hover: #1a1a1a;
-  --color-border: #222222;
-  --color-border-strong: #333333;
-  --color-text: #f2f2f2;
+  --color-surface-hover: #161616;
+  --color-border: rgb(255 255 255 / 0.05);
+  --color-border-strong: rgb(255 255 255 / 0.14);
+  --color-text: #f4f4f4;
   --color-text-muted: #a7a7a7;
   --color-text-subtle: #6e6e6e;
   --color-text-on-brand: #ffffff;
@@ -53,18 +53,20 @@
   --font-size-xl: 1.5rem;
   --font-size-2xl: 2rem;
   --font-size-3xl: clamp(2.25rem, 5vw, 3.5rem);
-  --font-size-display: clamp(2.5rem, 13vw, 7.5rem);
+  --font-size-display: clamp(2.5rem, 13vw, 8rem);
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
+  --font-weight-black: 900;
 
-  --line-height-display: 0.95;
+  --line-height-display: 0.85;
   --line-height-tight: 1.1;
   --line-height-normal: 1.6;
 
-  --tracking-display: -0.035em;
-  --tracking-label: 0.32em;
+  --tracking-display: -0.05em;
+  --tracking-label: 0.4em;
+  --tracking-eyebrow: 0.5em;
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -81,7 +83,7 @@
   --container-max: 1280px;
   --container-gutter: var(--space-4);
   --header-height: 112px;
-  --logo-height: 40px;
+  --logo-height: 65px;
 
   /* Radius */
   --radius-sm: 6px;
