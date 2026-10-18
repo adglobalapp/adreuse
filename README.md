@@ -131,5 +131,8 @@ cd frontend && npm run build          # típusellenőrzés + build
 
 ## Élesítés
 
+**Frontend (Docker):** minden `main`-re kerülő változás után a GitHub Actions (`.github/workflows/docker.yml`) elkészíti a `ghcr.io/adglobalapp/adreuse-frontend:latest` image-et ARM64-re és amd64-re (nginx, `frontend/nginx.conf`, az SPA-útvonalak az `index.html`-re esnek). Build-beállítások a repó Actions-változóiban (Settings → Secrets and variables → Actions → Variables): `API_URL` (alapból `https://api.adreuse.uk`), `REGISTRATION_ENABLED` (alapból `false`).
+
+
 - Frontend: `npm run build`, a `dist/` statikusan kiszolgálható (SPA: minden útvonal az `index.html`-re essen). Ha az API másik domainen fut, buildelés előtt állítsd be: `VITE_API_URL=https://api.example.com`.
 - Backend: szokásos Laravel deploy (`APP_ENV=production`, `APP_DEBUG=false`, éles adatbázis, `php artisan migrate --force`, `php artisan storage:link`). Külön domain esetén a `CORS_ALLOWED_ORIGINS`-t állítsd a frontendek címére.
