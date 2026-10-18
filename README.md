@@ -83,28 +83,20 @@ php artisan app:make-admin valaki@example.com --revoke   # jog elvétele
 
 Hirdetést az admin a fenti `PATCH` / `DELETE /api/listings/{id}` végpontokon szerkeszt és töröl; a jogosultságot a `ListingPolicy` adja.
 
-## E-mail küldés (Cloudflare Email Service)
+## E-mail küldés (Brevo)
 
-A backend a Cloudflare Email Service SMTP-jén küld (kapcsolati értesítések, később jelszó-visszaállítás). A teljes éles minta: `backend/.env.production.example`.
+A backend a Brevo SMTP relayén küld (kapcsolati értesítések): feladó `noreply@adglobalapp.com`, címzett `CONTACT_MAIL_TO` (`info@adglobalapp.com`), válaszcím a látogató e-mail címe. A teljes éles minta: `backend/.env.production.example`.
 
-1. **Küldés bekapcsolása a domainre:** Cloudflare dashboard → Email Service / Email Sending → az `adglobalapp.com` domain hozzáadása („onboarding”). Mivel a domain a Cloudflare-en van, a szükséges DNS-bejegyzéseket (DKIM, SPF) a Cloudflare maga veszi fel; a meglévő Email Routing (továbbítás) mellette tovább működik. A szolgáltatás bétában van, a menü neve változhat.
-2. **API token:** My Profile → API Tokens → Create Token → egyéni token, jogosultság: *Account → Email Sending → Edit*, csak a saját fiókra.
-3. **`backend/.env` a szerveren:**
-   ```
-   MAIL_MAILER=smtp
-   MAIL_SCHEME=smtps
-   MAIL_HOST=smtp.mx.cloudflare.net
-   MAIL_PORT=465
-   MAIL_USERNAME=api_token
-   MAIL_PASSWORD=<a 2. lépés tokenje>
-   MAIL_FROM_ADDRESS=noreply@adglobalapp.com
-   MAIL_FROM_NAME="AdGlobalApp"
-   CONTACT_MAIL_TO=info@adglobalapp.com
-   ```
-   A tokent csak a szerveren lévő `.env`-be írd, gitbe és chatbe ne.
-4. **Kipróbálás:** `php artisan config:clear && php artisan app:test-mail sajat@cim.hu` – ha a levél megérkezik, kész. Hiba esetén a parancs kiírja az okát.
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp-relay.brevo.com
+MAIL_PORT=587
+MAIL_USERNAME=<Brevo SMTP login>
+MAIL_PASSWORD=<Brevo SMTP kulcs>
+MAIL_FROM_ADDRESS=noreply@adglobalapp.com
+```
 
-Ha később másik szolgáltatóra (pl. Brevo) kell váltani, elég a `MAIL_*` sorokat átírni, a kódhoz nem kell nyúlni.
+A kulcsot csak a szerveren lévő `.env`-be írd. Kipróbálás: `php artisan app:test-mail sajat@cim.hu`. Másik szolgáltatóra váltáskor elég a `MAIL_*` sorokat átírni.
 
 ## Beállítások (`backend/.env`)
 
@@ -154,8 +146,8 @@ A feltöltött képek a `storage/app/public` alatt vannak: ezt a kötetet is men
 
 | Rekord | Érték | Megjegyzés |
 |---|---|---|
-| SPF – `TXT @` | `v=spf1 include:_spf.mx.cloudflare.net ~all` | Az Email Routing már felvette; csak egy SPF rekord lehet a domainen. |
-| DKIM | a Cloudflare adja | Az Email Service → Email Sending bekapcsolásakor a Cloudflare maga veszi fel a DKIM-et és a küldéshez szükséges rekordokat; ellenőrizd, hogy mind „Verified”. |
+| SPF – `TXT @` | `v=spf1 include:_spf.mx.cloudflare.net include:spf.brevo.com ~all` | Egyetlen SPF rekord lehet: a Cloudflare Email Routing és a Brevo is legyen benne. |
+| DKIM + domain-hitelesítés | a Brevo adja | Brevo → Senders, Domains → adglobalapp.com → Authenticate: a megadott DKIM és `brevo-code` rekordokat kell felvenni, amíg mind zöld nem lesz. |
 | DMARC – `TXT _dmarc` | `v=DMARC1; p=none; rua=mailto:info@adglobalapp.com` | Először `p=none` (csak jelentés); ha pár hétig minden levél átmegy, szigorítható `p=quarantine`-ra. |
 
 

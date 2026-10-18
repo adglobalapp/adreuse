@@ -36,7 +36,7 @@ jobs:
           build-args: |
             VITE_API_URL=${{ vars.API_URL || 'https://api.adreuse.uk' }}
             VITE_REGISTRATION_ENABLED=${{ vars.REGISTRATION_ENABLED || 'false' }}
-            VITE_TURNSTILE_SITE_KEY=${{ vars.TURNSTILE_SITE_KEY }}
+            VITE_TURNSTILE_SITE_KEY=${{ vars.TURNSTILE_SITE_KEY || '0x4AAAAAAFaRt6H2DpZc5GCF' }}
           tags: |
             ghcr.io/adglobalapp/adreuse-frontend:latest
             ghcr.io/adglobalapp/adreuse-frontend:${{ github.sha }}
