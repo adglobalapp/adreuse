@@ -38,3 +38,9 @@
   height: var(--logo-height);
   width: auto;
 }
+
+@media (max-width: 400px) {
+  .logo {
+    font-size: var(--font-size-lg);
+  }
+}
