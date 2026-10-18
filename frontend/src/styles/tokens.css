@@ -83,7 +83,7 @@
   --container-max: 1280px;
   --container-gutter: var(--space-4);
   --header-height: 144px;
-  --logo-font-size: 3.5rem; /* a logó felirata; a jel ennek 1.16-szorosa */
+  --logo-font-size: 2.2rem; /* a logó felirata: ~25px nagybetű, a jel ~41px – mint az adglobalapp.com logo.png-je 65px magasan */
   --logo-height: 65px;
 
   /* Radius */

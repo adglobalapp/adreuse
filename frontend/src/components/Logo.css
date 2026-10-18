@@ -19,12 +19,12 @@
 .logo__mark {
   display: block;
   width: auto;
-  height: 1.16em; /* 3.5rem betűnél ~65px, mint a mintán */
+  height: 1.17em;
 }
 
 @media (max-width: 767px) {
   .logo {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
 }
