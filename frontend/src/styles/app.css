@@ -1,0 +1,141 @@
+/* Az alkalmazás közös elemei: oldalfej, értesítések, jelvények, gombok <button> elemen. */
+
+.app {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.page {
+  padding-block: var(--space-6) var(--space-9);
+}
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.page-head__title {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-3xl);
+}
+
+.notice {
+  padding: var(--space-6) 0;
+  color: var(--color-text-muted);
+}
+
+.notice--error {
+  color: var(--color-danger);
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.badge--sold {
+  background: var(--color-brand-500);
+  color: var(--color-text-on-brand);
+}
+
+.badge--active {
+  color: var(--color-success);
+}
+
+button.btn {
+  font: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--danger {
+  border-color: var(--color-border-strong);
+  background: transparent;
+  color: var(--color-danger);
+}
+
+.btn--danger:hover {
+  border-color: var(--color-danger);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.field__error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+}
+
+.field__hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.field select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-raised);
+}
+
+.field select:focus {
+  border-color: var(--color-brand-500);
+  outline: none;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.check input {
+  accent-color: var(--color-brand-500);
+}
+
+.form--narrow {
+  max-width: 760px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+@media (max-width: 600px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+  }
+}

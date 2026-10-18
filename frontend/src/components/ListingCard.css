@@ -1,0 +1,80 @@
+.lgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-5);
+}
+
+.lcard {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-raised);
+  overflow: hidden;
+  transition:
+    border-color var(--duration-normal),
+    background var(--duration-normal);
+}
+
+.lcard:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-hover);
+}
+
+.lcard__link {
+  display: block;
+  height: 100%;
+}
+
+.lcard .media {
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+
+.lcard__badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+}
+
+.lcard__body {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+
+.lcard__meta {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.lcard__title {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-lg);
+  transition: color var(--duration-normal);
+}
+
+.lcard:hover .lcard__title {
+  color: var(--color-brand-500);
+}
+
+.lcard__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.lcard__price {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-display);
+}
+
+.lcard__location {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

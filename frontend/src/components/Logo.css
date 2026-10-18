@@ -1,0 +1,36 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-500);
+  background: linear-gradient(180deg, var(--color-brand-400), var(--color-brand-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.logo span {
+  color: transparent;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    font-size: var(--font-size-xl);
+  }
+  .logo svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.logo--image {
+  background: none;
+}
+
+.logo--image img {
+  display: block;
+  height: var(--logo-height);
+  width: auto;
+}
