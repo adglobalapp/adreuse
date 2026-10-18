@@ -3,7 +3,7 @@
   align-items: center;
   gap: 0.3em;
   font-family: var(--font-logo);
-  font-size: 2.25rem;
+  font-size: var(--logo-font-size);
   font-weight: var(--font-weight-bold);
   color: var(--color-brand-500);
   background: linear-gradient(180deg, var(--logo-gradient-from), var(--logo-gradient-to));
@@ -19,12 +19,12 @@
 .logo__mark {
   display: block;
   width: auto;
-  height: 1.25em;
+  height: 1.16em; /* 3.5rem betűnél ~65px, mint a mintán */
 }
 
 @media (max-width: 767px) {
   .logo {
-    font-size: var(--font-size-xl);
+    font-size: 2rem;
   }
 
 }

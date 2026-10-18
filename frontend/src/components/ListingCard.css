@@ -15,9 +15,6 @@
     background var(--duration-normal);
 }
 
-.lcard:hover {
-  border-color: var(--color-brand-alpha);
-}
 
 .lcard__link {
   display: block;
@@ -54,9 +51,6 @@
   transition: color var(--duration-normal);
 }
 
-.lcard:hover .lcard__title {
-  color: var(--color-brand-hover);
-}
 
 .lcard__foot {
   display: flex;

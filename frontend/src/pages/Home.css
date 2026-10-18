@@ -22,9 +22,6 @@
   transition: opacity var(--duration-normal);
 }
 
-.cat:hover {
-  border-color: var(--color-brand-alpha);
-}
 
 .cat:hover > * {
   opacity: 1;
@@ -47,9 +44,6 @@
   transition: color var(--duration-normal);
 }
 
-.cat:hover .cat__name {
-  color: var(--color-brand-hover);
-}
 
 .cat__count {
   align-self: end;

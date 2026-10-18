@@ -18,7 +18,7 @@
   max-width: 640px;
   margin-top: var(--space-7);
   padding-left: var(--space-5);
-  border-left: 2px solid var(--color-brand-500);
+  border-left: 2px solid var(--color-rule);
   font-size: clamp(var(--font-size-lg), 2.2vw, var(--font-size-xl));
   font-style: italic;
   font-weight: 300;

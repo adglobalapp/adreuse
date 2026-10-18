@@ -12,7 +12,6 @@
   --color-brand-500: #dc2b19; /* egyszínű piros: címkék, kiemelt szavak, aktív állapot */
   --color-brand-600: var(--color-brand-to);
   --color-brand-hover: #dc2b19;
-  --color-brand-alpha: rgb(220 43 25 / 0.4); /* kártyakeret hoverre */
 
   /* Logó: a felirat színátmenete és betűtípusa */
   --logo-gradient-from: var(--color-brand-from);
@@ -30,6 +29,7 @@
   --color-text-muted: #a7a7a7;
   --color-text-subtle: #6e6e6e;
   --color-text-on-brand: #ffffff;
+  --color-rule: #e5e7eb; /* idézet bal oldali vonala (a mintában is világosszürke) */
 
   /* Feedback */
   --color-success: #3fb27f;
@@ -82,7 +82,8 @@
   /* Layout */
   --container-max: 1280px;
   --container-gutter: var(--space-4);
-  --header-height: 112px;
+  --header-height: 144px;
+  --logo-font-size: 3.5rem; /* a logó felirata; a jel ennek 1.16-szorosa */
   --logo-height: 65px;
 
   /* Radius */
