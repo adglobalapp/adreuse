@@ -34,6 +34,7 @@
   --color-text-muted: #a7a7a7;
   --color-text-subtle: #6e6e6e;
   --color-text-on-brand: #ffffff;
+  --footer-legal-opacity: 0.55; /* a mintán 0.3, de a cégadatoknak olvashatónak kell lenniük */
   --color-rule: #e5e7eb; /* idézet bal oldali vonala (a mintában is világosszürke) */
 
   /* Feedback */

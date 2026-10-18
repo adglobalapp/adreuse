@@ -161,7 +161,7 @@ export type Content = {
   conditions: Record<Condition, string>;
   /** Kategórianevek a backend slugjai szerint; ha egy slug hiányzik, a backend neve jelenik meg. */
   categories: Record<string, string>;
-  footer: { tags: string[]; registered: string; rights: string };
+  footer: { tags: string[]; registered: string; companyNo: string; office: string; rights: string };
 };
 
 const hu: Content = {
@@ -310,7 +310,7 @@ const hu: Content = {
     kids: 'Gyerek',
     other: 'Egyéb',
   },
-  footer: { tags: ['Újrahasználat', 'Adás-vétel', 'Fenntarthatóság'], registered: 'Az Egyesült Királyságban bejegyzett cég.', rights: 'Minden jog fenntartva.' },
+  footer: { tags: ['Újrahasználat', 'Adás-vétel', 'Fenntarthatóság'], registered: 'Bejegyezve: Anglia és Wales', companyNo: 'Cégjegyzékszám', office: 'Bejegyzett székhely', rights: 'Minden jog fenntartva.' },
 };
 
 const en: Content = {
@@ -459,7 +459,7 @@ const en: Content = {
     kids: 'Kids',
     other: 'Other',
   },
-  footer: { tags: ['Reuse', 'Buy & sell', 'Sustainability'], registered: 'Registered in the UK.', rights: 'All rights reserved.' },
+  footer: { tags: ['Reuse', 'Buy & sell', 'Sustainability'], registered: 'Registered in England & Wales', companyNo: 'Company no.', office: 'Registered office', rights: 'All rights reserved.' },
 };
 
 const es: Content = {
@@ -608,7 +608,7 @@ const es: Content = {
     kids: 'Niños',
     other: 'Otros',
   },
-  footer: { tags: ['Reutilizar', 'Compraventa', 'Sostenibilidad'], registered: 'Registrada en el Reino Unido.', rights: 'Todos los derechos reservados.' },
+  footer: { tags: ['Reutilizar', 'Compraventa', 'Sostenibilidad'], registered: 'Registrada en Inglaterra y Gales', companyNo: 'N.º de empresa', office: 'Domicilio social', rights: 'Todos los derechos reservados.' },
 };
 
 export const content: Record<Lang, Content> = { hu, en, es };

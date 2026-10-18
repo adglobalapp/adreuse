@@ -21,10 +21,12 @@ export const brand = {
     { label: 'LinkedIn', href: 'https://uk.linkedin.com/company/adglobalapp', icon: 'linkedin' },
   ] satisfies { label: string; href: string; icon: IconName }[],
 
-  /** Anyacég: a láblécben a logója és a jogi sor. */
+  /** Anyacég: a láblécben a logója és a cégadatok (Companies House szerint). */
   parent: {
     name: 'AdGlobalApp',
-    company: 'AdGlobalApp Ltd.',
+    company: 'ADGLOBALAPP LTD',
+    companyNumber: '15251437',
+    registeredOffice: '38 Abbott Court, Buckshaw Village, Chorley, England, PR7 7ET',
     url: 'https://www.adglobalapp.com',
     logoSrc: '/adapp-logo.png',
   },
