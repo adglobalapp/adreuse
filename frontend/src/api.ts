@@ -125,6 +125,9 @@ export const api = {
   me: () => request<{ data: User }>('/me').then((r) => r.data),
 
   categories: () => request<{ data: Category[] }>('/categories').then((r) => r.data),
+  /** Kapcsolati / érdeklődő üzenet (backend: POST /api/contact, az admin felület Üzenetek fülén jelenik meg). */
+  contact: (data: { name: string; email: string; message: string; website?: string }) =>
+    request<void>('/contact', { method: 'POST', body: json({ ...data, site: 'adreuse' }) }),
 
   listings: (filters: ListingFilters = {}) => request<Paginated<Listing>>(`/listings${query(filters)}`),
   myListings: () => request<Paginated<Listing>>('/my/listings'),

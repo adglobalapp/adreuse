@@ -111,6 +111,7 @@ Ha később másik szolgáltatóra (pl. Brevo) kell váltani, elég a `MAIL_*` s
 | Változó | Mire való |
 |---|---|
 | `CONTACT_MAIL_TO` | Erre a címre megy értesítés minden új kapcsolati üzenetről (üresen hagyva csak mentjük). Javasolt: `info@adglobalapp.com`. A levélküldést lásd fent. |
+| `REGISTRATION_ENABLED` | Új fiókok regisztrációja (alapból `false`). A frontendben ugyanígy kell állítani: `VITE_REGISTRATION_ENABLED`. Kikapcsolva csak a meglévő fiókok (adminok) lépnek be, a látogatók a hirdetésnél „Érdeklődöm” űrlapon írhatnak (Admin → Üzenetek). |
 | `CONTACT_SITES` | Azok az oldalazonosítók, amelyek üzenetet küldhetnek. |
 | `CORS_ALLOWED_ORIGINS` | A többi oldal domainje vesszővel elválasztva (pl. `https://adlingua.org,https://adglobaltransport.com`), ahonnan a böngésző hívhatja az API-t. |
 
@@ -129,6 +130,9 @@ cd frontend && npm run build          # típusellenőrzés + build
 - **Szövegek, kategórianevek:** `frontend/src/content.ts`
 
 ## Élesítés
+
+**Frontend (Docker):** minden `main`-re kerülő változás után a GitHub Actions (`.github/workflows/docker.yml`) elkészíti a `ghcr.io/adglobalapp/adreuse-frontend:latest` image-et ARM64-re és amd64-re (nginx, `frontend/nginx.conf`, az SPA-útvonalak az `index.html`-re esnek). Build-beállítások a repó Actions-változóiban (Settings → Secrets and variables → Actions → Variables): `API_URL` (alapból `https://api.adreuse.uk`), `REGISTRATION_ENABLED` (alapból `false`).
+
 
 - Frontend: `npm run build`, a `dist/` statikusan kiszolgálható (SPA: minden útvonal az `index.html`-re essen). Ha az API másik domainen fut, buildelés előtt állítsd be: `VITE_API_URL=https://api.example.com`.
 - Backend: szokásos Laravel deploy (`APP_ENV=production`, `APP_DEBUG=false`, éles adatbázis, `php artisan migrate --force`, `php artisan storage:link`). Külön domain esetén a `CORS_ALLOWED_ORIGINS`-t állítsd a frontendek címére.

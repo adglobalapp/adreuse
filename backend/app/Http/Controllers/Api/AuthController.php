@@ -15,6 +15,8 @@ class AuthController extends Controller
 {
     public function register(Request $request): JsonResponse
     {
+        abort_unless(config('adreuse.registration_enabled'), 403, 'A regisztráció jelenleg szünetel.');
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],

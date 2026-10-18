@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router';
 import { useAuth } from '../auth';
 import { languages } from '../content';
+import { registrationEnabled } from '../features';
 import { useI18n } from '../i18n';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
@@ -44,9 +45,11 @@ export function Header() {
             <NavLink to="/listings" onClick={close}>
               {t.nav.browse}
             </NavLink>
-            <NavLink to="/sell" onClick={close}>
-              {t.nav.sell}
-            </NavLink>
+            {(user || registrationEnabled) && (
+              <NavLink to="/sell" onClick={close}>
+                {t.nav.sell}
+              </NavLink>
+            )}
             {user ? (
               <>
                 <NavLink to="/my" onClick={close}>

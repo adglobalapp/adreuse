@@ -1,7 +1,9 @@
 import { Link } from 'react-router';
 import { api } from '../api';
+import { useAuth } from '../auth';
 import { Icon } from '../components/Icon';
 import { ListingGrid } from '../components/ListingCard';
+import { registrationEnabled } from '../features';
 import { useI18n } from '../i18n';
 import { useAsync } from '../useAsync';
 import '../components/Hero.css';
@@ -9,6 +11,9 @@ import './Home.css';
 
 export function Home() {
   const { t } = useI18n();
+  const { user } = useAuth();
+  // Regisztráció nélkül csak a bejelentkezett (admin) felhasználók adhatnak fel hirdetést.
+  const canSell = Boolean(user) || registrationEnabled;
   const [first, middle, last] = t.home.lines;
   const categories = useAsync(() => api.categories(), []);
   const latest = useAsync(() => api.listings({ per_page: '8' }), []);
@@ -25,10 +30,12 @@ export function Home() {
           </h1>
           <blockquote className="hero__quote">{t.home.quote}</blockquote>
           <div className="hero__ctas">
-            <Link to="/sell" className="btn btn--primary">
-              {t.home.primaryCta} <Icon name="arrow" size={16} />
-            </Link>
-            <Link to="/listings" className="btn btn--outline">
+            {canSell && (
+              <Link to="/sell" className="btn btn--primary">
+                {t.home.primaryCta} <Icon name="arrow" size={16} />
+              </Link>
+            )}
+            <Link to="/listings" className={canSell ? 'btn btn--outline' : 'btn btn--primary'}>
               {t.home.secondaryCta}
             </Link>
           </div>
@@ -74,17 +81,19 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container sell-cta">
-          <div>
-            <h2 className="section__title">{t.home.sellTitle}</h2>
-            <p className="section__lead">{t.home.sellText}</p>
+      {canSell && (
+        <section className="section">
+          <div className="container sell-cta">
+            <div>
+              <h2 className="section__title">{t.home.sellTitle}</h2>
+              <p className="section__lead">{t.home.sellText}</p>
+            </div>
+            <Link to="/sell" className="btn btn--primary">
+              {t.home.sellCta} <Icon name="arrow" size={16} />
+            </Link>
           </div>
-          <Link to="/sell" className="btn btn--primary">
-            {t.home.sellCta} <Icon name="arrow" size={16} />
-          </Link>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

@@ -1,0 +1,42 @@
+name: Docker image
+
+# Minden main-re kerülő változásnál elkészül az image (ARM64 a Pi-nek + amd64),
+# és felkerül a GitHub Container Registry-be: ghcr.io/adglobalapp/adreuse-frontend
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: frontend
+          platforms: linux/arm64,linux/amd64
+          push: true
+          build-args: |
+            VITE_API_URL=${{ vars.API_URL || 'https://api.adreuse.uk' }}
+            VITE_REGISTRATION_ENABLED=${{ vars.REGISTRATION_ENABLED || 'false' }}
+          tags: |
+            ghcr.io/adglobalapp/adreuse-frontend:latest
+            ghcr.io/adglobalapp/adreuse-frontend:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

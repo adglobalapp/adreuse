@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router';
 import { ApiError } from '../api';
 import { useAuth } from '../auth';
 import { Icon } from '../components/Icon';
+import { registrationEnabled } from '../features';
 import { useI18n } from '../i18n';
 import './Auth.css';
 
@@ -85,9 +86,11 @@ export function AuthPage({ mode }: { mode: 'login' | 'register' }) {
         <button type="submit" className="btn btn--primary" disabled={busy}>
           {isLogin ? t.auth.login : t.auth.register} <Icon name="arrow" size={16} />
         </button>
-        <Link to={isLogin ? '/register' : '/login'} state={location.state} className="auth__switch">
-          {isLogin ? t.auth.noAccount : t.auth.hasAccount}
-        </Link>
+        {registrationEnabled && (
+          <Link to={isLogin ? '/register' : '/login'} state={location.state} className="auth__switch">
+            {isLogin ? t.auth.noAccount : t.auth.hasAccount}
+          </Link>
+        )}
       </form>
     </div>
   );
