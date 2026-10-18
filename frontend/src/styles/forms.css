@@ -130,3 +130,24 @@
 .inquiry__title {
   font-size: var(--font-size-xl);
 }
+
+.form__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.form__note a,
+.form__status a {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.form__note a:hover,
+.form__status a:hover {
+  color: var(--color-brand-hover);
+}
+
+.turnstile {
+  min-height: 65px;
+}

@@ -131,6 +131,34 @@ cd frontend && npm run build          # típusellenőrzés + build
 
 ## Élesítés
 
+### Backend (Docker)
+
+Minden `backend/` változás után a GitHub Actions (`.github/workflows/docker-backend.yml`) elkészíti a `ghcr.io/adglobalapp/adreuse-backend:latest` image-et (linux/arm64 + amd64). Az image php-fpm + nginx a 80-as porton, titkot nem tartalmaz.
+
+Induláskor (`backend/docker/entrypoint.sh`): létrehozza a `storage/` könyvtárait (kötetként üresen is jöhet), `storage:link`, `migrate --force` (megvárja az adatbázist), `config/route/view:cache`, és háttérben futtatja az ütemezőt (régi kapcsolati üzenetek törlése). **Nem fut** `db:seed` és `key:generate`; `APP_KEY` nélkül a konténer hibaüzenettel leáll.
+
+1. `.env` a szerveren a `backend/.env.production.example` alapján (titkok csak itt).
+2. `APP_KEY` egyszeri generálása: `docker run --rm --entrypoint php ghcr.io/adglobalapp/adreuse-backend:latest artisan key:generate --show`
+3. Konténer: `env_file: .env`, kötet a `/var/www/html/storage`-ra, a `web` hálózaton. Ellenőrzés: `GET /up` → 200.
+4. Alap kategóriák (egyszer, biztonságosan ismételhető): `docker exec <konténer> php artisan db:seed --class=CategorySeeder --force`
+5. Első admin (zárt regisztráció mellett): `docker exec -it <konténer> php artisan app:create-admin email@cim --name="Név"` – véletlen ideiglenes jelszót ír ki, csak egyszer.
+6. Levélküldés próbája: `docker exec <konténer> php artisan app:test-mail sajat@cim.hu`
+
+A feltöltött képek a `storage/app/public` alatt vannak: ezt a kötetet is menteni kell, nem csak az adatbázist.
+
+**Proxy és IP:** a Laravel minden proxyban megbízik (`trustProxies(at: '*')`), így felismeri a HTTPS-t a Cloudflare → Tunnel → NPM lánc mögött. A korlátozások (kapcsolat: 5 üzenet / 10 perc, belépés: 10 / perc) a `CF-Connecting-IP` fejléc szerinti valódi kliens-IP-re vonatkoznak.
+
+**Spamvédelem:** honeypot mező, korlátozás és Cloudflare Turnstile (`TURNSTILE_SECRET_KEY`; a frontendekben a nyilvános site key build-változó).
+
+**DNS az adglobalapp.com-hoz** (Cloudflare → DNS; a tulajdonos állítja be):
+
+| Rekord | Érték | Megjegyzés |
+|---|---|---|
+| SPF – `TXT @` | `v=spf1 include:_spf.mx.cloudflare.net ~all` | Az Email Routing már felvette; csak egy SPF rekord lehet a domainen. |
+| DKIM | a Cloudflare adja | Az Email Service → Email Sending bekapcsolásakor a Cloudflare maga veszi fel a DKIM-et és a küldéshez szükséges rekordokat; ellenőrizd, hogy mind „Verified”. |
+| DMARC – `TXT _dmarc` | `v=DMARC1; p=none; rua=mailto:info@adglobalapp.com` | Először `p=none` (csak jelentés); ha pár hétig minden levél átmegy, szigorítható `p=quarantine`-ra. |
+
+
 **Frontend (Docker):** minden `main`-re kerülő változás után a GitHub Actions (`.github/workflows/docker.yml`) elkészíti a `ghcr.io/adglobalapp/adreuse-frontend:latest` image-et ARM64-re és amd64-re (nginx, `frontend/nginx.conf`, az SPA-útvonalak az `index.html`-re esnek). Build-beállítások a repó Actions-változóiban (Settings → Secrets and variables → Actions → Variables): `API_URL` (alapból `https://api.adreuse.uk`), `REGISTRATION_ENABLED` (alapból `false`).
 
 

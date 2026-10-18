@@ -126,7 +126,7 @@ export const api = {
 
   categories: () => request<{ data: Category[] }>('/categories').then((r) => r.data),
   /** Kapcsolati / érdeklődő üzenet (backend: POST /api/contact, az admin felület Üzenetek fülén jelenik meg). */
-  contact: (data: { name: string; email: string; message: string; website?: string }) =>
+  contact: (data: { name: string; email: string; message: string; website?: string; 'cf-turnstile-response'?: string }) =>
     request<void>('/contact', { method: 'POST', body: json({ ...data, site: 'adreuse' }) }),
 
   listings: (filters: ListingFilters = {}) => request<Paginated<Listing>>(`/listings${query(filters)}`),

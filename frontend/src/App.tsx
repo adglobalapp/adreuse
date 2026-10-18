@@ -17,6 +17,7 @@ import { ListingDetail } from './pages/ListingDetail';
 import { ListingForm } from './pages/ListingForm';
 import { MyListings } from './pages/MyListings';
 import { NotFound } from './pages/NotFound';
+import { Privacy } from './components/Privacy';
 
 export function App() {
   const { pathname } = useLocation();
@@ -44,6 +45,7 @@ export function App() {
           </Route>
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/register" element={registrationEnabled ? <AuthPage mode="register" /> : <Navigate to="/login" replace />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

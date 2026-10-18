@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Élesben Cloudflare → Tunnel → Nginx Proxy Manager → konténer: a proxy fejléceket elfogadjuk
+        // (HTTPS felismerése, helyes URL-ek). A valódi kliens IP-t lásd: App\Support\ClientIp.
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'admin' => EnsureUserIsAdmin::class,
         ]);

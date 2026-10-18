@@ -1,10 +1,11 @@
 import { brand } from '../brand';
 import { useI18n } from '../i18n';
+import { privacy } from '../privacy';
 import { Icon } from './Icon';
 import './Footer.css';
 
 export function Footer() {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
   const year = new Date().getFullYear();
 
   return (
@@ -28,6 +29,10 @@ export function Footer() {
             <img src={brand.parent.logoSrc} alt={brand.parent.name} />
           </a>
         </div>
+
+        <p className="footer__links">
+          <a href="/privacy">{privacy[lang].linkLabel}</a>
+        </p>
 
         <p className="footer__copy">
           <span>{brand.parent.company}</span>
