@@ -70,8 +70,19 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
+  line-height: 2;
   color: var(--color-text-muted);
-  opacity: 0.3;
+  opacity: var(--footer-legal-opacity);
+}
+
+/* Cégadatok: elemek között pont, a székhely és a copyright külön sorban */
+.footer__copy span:not(.footer__office) + span:not(.footer__office)::before {
+  content: '·';
+  margin-inline: 0.75em;
+}
+
+.footer__office {
+  display: block;
 }
 
 @media (max-width: 767px) {

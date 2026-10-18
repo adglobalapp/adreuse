@@ -30,7 +30,17 @@ export function Footer() {
         </div>
 
         <p className="footer__copy">
-          {brand.parent.company} {t.footer.registered} © {year} {t.footer.rights}
+          <span>{brand.parent.company}</span>
+          <span>{t.footer.registered}</span>
+          <span>
+            {t.footer.companyNo} {brand.parent.companyNumber}
+          </span>
+          <span className="footer__office">
+            {t.footer.office}: {brand.parent.registeredOffice}
+          </span>
+          <span className="footer__office">
+            © {year} {t.footer.rights}
+          </span>
         </p>
       </div>
     </footer>
