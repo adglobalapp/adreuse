@@ -10,6 +10,8 @@ app/Http/Controllers/Api/              # Auth, Category, Listing, Contact kontro
 app/Http/Controllers/Api/Admin/        # admin API: Stats, Listing, Category, User, Message
 app/Http/Middleware/EnsureUserIsAdmin.php
 app/Console/Commands/MakeAdmin.php     # php artisan app:make-admin {email}
+app/Console/Commands/TestMail.php      # php artisan app:test-mail {email} – levélküldés próbája
+.env.production.example                # éles beállítások mintája (Cloudflare SMTP, MariaDB, CORS)
 app/Http/Requests/                     # hirdetés validáció
 app/Http/Resources/                    # JSON válaszok formája
 app/Policies/ListingPolicy.php         # a tulajdonos vagy admin szerkeszthet/törölhet
