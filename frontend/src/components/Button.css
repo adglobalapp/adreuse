@@ -27,12 +27,12 @@
 }
 
 .btn--primary {
-  background: var(--color-brand-500);
+  background: var(--color-brand-gradient);
   color: var(--color-text-on-brand);
 }
 
 .btn--primary:hover {
-  background: var(--color-brand-600);
+  background: var(--color-brand-hover);
 }
 
 .btn--outline {

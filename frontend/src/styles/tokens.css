@@ -5,11 +5,19 @@
  * (és a betűtípusokat az index.html-ben) lecserélni.
  */
 :root {
-  /* Brand */
-  --color-brand-500: #d62b1f;
-  --color-brand-600: #b02016;
-  --color-brand-400: #e8503f;
-  --color-brand-alpha: rgb(214 43 31 / 0.14);
+  /* Brand – a fő piros a hivatalos logó színátmenete */
+  --color-brand-from: #ea1f24;
+  --color-brand-to: #a11d1e;
+  --color-brand-gradient: linear-gradient(180deg, var(--color-brand-from), var(--color-brand-to));
+  --color-brand-500: var(--color-brand-from); /* egyszínű piros: címkék, keretek, kiemelések */
+  --color-brand-600: var(--color-brand-to);
+  --color-brand-hover: #dc2b19;
+  --color-brand-alpha: rgb(234 31 36 / 0.14);
+
+  /* Logó: a felirat színátmenete és betűtípusa */
+  --logo-gradient-from: var(--color-brand-from);
+  --logo-gradient-to: var(--color-brand-to);
+  --font-logo: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
   /* Surfaces & text */
   --color-bg: #0d0d0d;
@@ -19,7 +27,7 @@
   --color-border: #222222;
   --color-border-strong: #333333;
   --color-text: #f2f2f2;
-  --color-text-muted: #a3a3a3;
+  --color-text-muted: #a7a7a7;
   --color-text-subtle: #6e6e6e;
   --color-text-on-brand: #ffffff;
 
@@ -33,8 +41,9 @@
   --color-placeholder-text: #4d4d4d;
 
   /* Typography */
-  --font-display: 'Jost', 'Tw Cen MT', 'Futura', system-ui, sans-serif;
-  --font-body: 'Ubuntu', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Web safe betűtípus, nem kell betölteni */
+  --font-display: 'Trebuchet MS', Helvetica, sans-serif;
+  --font-body: 'Trebuchet MS', Helvetica, sans-serif;
 
   --font-size-2xs: 0.6875rem;
   --font-size-xs: 0.75rem;

@@ -1,28 +1,32 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  font-family: var(--font-body);
+  gap: 0.3em;
+  font-family: var(--font-logo);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-brand-500);
-  background: linear-gradient(180deg, var(--color-brand-400), var(--color-brand-600));
+  background: linear-gradient(180deg, var(--logo-gradient-from), var(--logo-gradient-to));
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 .logo span {
   color: transparent;
+  letter-spacing: -0.01em;
+}
+
+.logo__mark {
+  display: block;
+  width: auto;
+  height: 1.25em;
 }
 
 @media (max-width: 767px) {
   .logo {
     font-size: var(--font-size-xl);
   }
-  .logo svg {
-    width: 30px;
-    height: 30px;
-  }
+
 }
 
 .logo--image {

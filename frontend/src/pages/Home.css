@@ -39,7 +39,7 @@
 }
 
 .cat:hover .cat__name {
-  color: var(--color-brand-500);
+  color: var(--color-brand-hover);
 }
 
 .cat__count {

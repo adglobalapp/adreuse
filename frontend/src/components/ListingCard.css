@@ -56,7 +56,7 @@
 }
 
 .lcard:hover .lcard__title {
-  color: var(--color-brand-500);
+  color: var(--color-brand-hover);
 }
 
 .lcard__foot {

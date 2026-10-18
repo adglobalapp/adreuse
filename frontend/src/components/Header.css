@@ -34,9 +34,12 @@
   transition: color var(--duration-fast);
 }
 
-.lang button:hover,
 .lang button.is-active {
   color: var(--color-brand-500);
+}
+
+.lang button:hover {
+  color: var(--color-brand-hover);
 }
 
 .header__nav {

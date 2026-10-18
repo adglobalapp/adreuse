@@ -66,7 +66,8 @@ cd frontend && npm run build          # típusellenőrzés + build
 ## Arculat cseréje
 
 - **Színek, betűk, méretek:** `frontend/src/styles/tokens.css`; betűtípusok: `frontend/index.html`
-- **Logó, név, közösségi linkek:** `frontend/src/brand.ts` (`logoSrc` pl. `'/logo.svg'` a `public/` mappából); favicon: `frontend/public/favicon.svg`
+- **Logó:** a hivatalos AdApp logójel a `frontend/public/logo-mark.png`, a felirat színe és betűtípusa a `--logo-*` / `--font-logo` tokenekből jön; favicon: `frontend/public/favicon.png`
+- **Név, közösségi linkek:** `frontend/src/brand.ts`
 - **Szövegek, kategórianevek:** `frontend/src/content.ts`
 
 ## Élesítés
