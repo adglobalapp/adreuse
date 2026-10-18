@@ -1,0 +1,118 @@
+/*
+ * Design tokens – az AdGlobalApp arculatából
+ * (sötét felület, #dc2b19 piros akcentus, extra vastag szűk címsorok, ritkított címkék).
+ * Az egész oldal ezekből a változókból dolgozik: új arculatnál elég ezt a fájlt
+ * (és a betűtípusokat az index.html-ben) lecserélni.
+ */
+:root {
+  /* Brand – a fő piros a hivatalos logó színátmenete */
+  --color-brand-from: #ea1f24;
+  --color-brand-to: #a11d1e;
+  --color-brand-gradient: linear-gradient(180deg, var(--color-brand-from), var(--color-brand-to));
+  --color-brand-500: #dc2b19; /* egyszínű piros: címkék, kiemelt szavak, aktív állapot */
+  --color-brand-600: var(--color-brand-to);
+  --color-brand-hover: #dc2b19;
+
+  /*
+   * Logó felirat: a hivatalos logóból mért színátmenet. Majdnem függőleges (176°), a betűk tetején
+   * élénkpiros, az alapvonalnál bordó, a lelógó száraknál a legsötétebb; jobbra haladva enyhén
+   * sötétül, ezért a második szó (pl. „Lingua”) eleve sötétebbről indul, mint az „Ad”.
+   * Stop-pontok: 11% ≈ nagybetű teteje, 70% ≈ alapvonal, 88% ≈ lelógó szár alja.
+   */
+  --logo-gradient-first: linear-gradient(176deg, #e72024 0%, #de2124 11%, #a01f20 40%, #7b1919 70%, #5f1111 88%, #561010 100%);
+  --logo-gradient-second: linear-gradient(176deg, #c42324 0%, #bc2222 11%, #8a1c1c 40%, #631313 70%, #571010 88%, #520f0f 100%);
+  --font-logo: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
+  /* Surfaces & text */
+  --color-bg: #0c0c0c;
+  --color-bg-raised: #111111;
+  --color-surface: #141414;
+  --color-surface-hover: #161616;
+  --color-border: rgb(255 255 255 / 0.05);
+  --color-border-strong: rgb(255 255 255 / 0.14);
+  --color-text: #f4f4f4;
+  --color-text-muted: #a7a7a7;
+  --color-text-subtle: #6e6e6e;
+  --color-text-on-brand: #ffffff;
+  --color-rule: #e5e7eb; /* idézet bal oldali vonala (a mintában is világosszürke) */
+
+  /* Feedback */
+  --color-success: #3fb27f;
+  --color-danger: #e5484d;
+
+  /* Placeholder (amíg nincsenek valódi képek) */
+  --color-placeholder-bg: #161616;
+  --color-placeholder-stripe: #1d1d1d;
+  --color-placeholder-text: #4d4d4d;
+
+  /* Typography */
+  /* Web safe betűtípus, nem kell betölteni */
+  --font-display: 'Trebuchet MS', Helvetica, sans-serif;
+  --font-body: 'Trebuchet MS', Helvetica, sans-serif;
+
+  --font-size-2xs: 0.6875rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: clamp(2.25rem, 5vw, 3.5rem);
+  --font-size-display: clamp(2.5rem, 13vw, 8rem);
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  --line-height-display: 0.85;
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.6;
+
+  --tracking-display: -0.05em;
+  --tracking-label: 0.4em;
+  --tracking-eyebrow: 0.5em;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 3.5rem;
+  --space-8: 5rem;
+  --space-9: 8rem;
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-gutter: var(--space-4);
+  --header-height: 144px;
+  --logo-font-size: 2.2rem; /* a logó felirata: ~25px nagybetű, a jel ~41px – mint az adglobalapp.com logo.png-je 65px magasan */
+  --logo-height: 65px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 800ms;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-gutter: var(--space-6);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-height: 80px;
+  }
+}

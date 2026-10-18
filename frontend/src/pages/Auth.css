@@ -1,0 +1,28 @@
+.auth {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.auth .contact__title {
+  font-size: var(--font-size-3xl);
+}
+
+.auth__switch {
+  justify-self: start;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.auth__switch:hover {
+  color: var(--color-text);
+}
+
+@media (max-width: 860px) {
+  .auth {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

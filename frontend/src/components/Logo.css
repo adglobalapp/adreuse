@@ -1,0 +1,55 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22em;
+  font-family: var(--font-logo);
+  font-size: var(--logo-font-size);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-500);
+}
+
+/* A színátmenet a szavak dobozán fut: 1em magas sor + 0.2em hely a lelógó száraknak. */
+.logo span {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: transparent;
+  background: var(--logo-gradient-first);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.logo span:last-child {
+  background-image: var(--logo-gradient-second);
+}
+
+.logo__mark {
+  display: block;
+  width: auto;
+  height: 1.17em;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    font-size: 1.75rem;
+  }
+
+}
+
+.logo--image {
+  background: none;
+}
+
+.logo--image img {
+  display: block;
+  height: var(--logo-height);
+  max-height: calc(var(--header-height) - var(--space-5));
+  width: auto;
+}
+
+@media (max-width: 400px) {
+  .logo {
+    font-size: var(--font-size-lg);
+  }
+}
