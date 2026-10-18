@@ -10,8 +10,22 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_registration_is_closed_by_default(): void
+    {
+        $this->postJson('/api/register', [
+            'name' => 'Teszt Elek',
+            'email' => 'elek@example.com',
+            'password' => 'secret-password',
+            'password_confirmation' => 'secret-password',
+        ])->assertForbidden();
+
+        $this->assertDatabaseCount('users', 0);
+    }
+
     public function test_user_can_register_and_receives_token(): void
     {
+        config(['adreuse.registration_enabled' => true]);
+
         $response = $this->postJson('/api/register', [
             'name' => 'Teszt Elek',
             'email' => 'elek@example.com',

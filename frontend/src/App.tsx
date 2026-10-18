@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router';
+import { Navigate, Route, Routes, useLocation } from 'react-router';
 import { Footer } from './components/Footer';
+import { registrationEnabled } from './features';
 import { Header } from './components/Header';
 import { RequireAuth } from './components/RequireAuth';
 import { Admin } from './pages/admin/Admin';
@@ -42,7 +43,7 @@ export function App() {
             <Route path="messages" element={<AdminMessages />} />
           </Route>
           <Route path="/login" element={<AuthPage mode="login" />} />
-          <Route path="/register" element={<AuthPage mode="register" />} />
+          <Route path="/register" element={registrationEnabled ? <AuthPage mode="register" /> : <Navigate to="/login" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -3,7 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { api, ApiError } from '../api';
 import { useAuth } from '../auth';
 import { Icon } from '../components/Icon';
+import { Inquiry } from '../components/Inquiry';
 import { Media } from '../components/Media';
+import { registrationEnabled } from '../features';
 import { formatDate, formatPrice } from '../format';
 import { useI18n } from '../i18n';
 import { useAsync } from '../useAsync';
@@ -102,10 +104,12 @@ export function ListingDetail() {
             >
               <Icon name="mail" size={16} /> {t.listing.contactSeller}
             </a>
-          ) : (
+          ) : registrationEnabled ? (
             <Link to="/login" state={{ from: `/listings/${listing.id}` }} className="btn btn--outline">
               {t.listing.loginToContact}
             </Link>
+          ) : (
+            listing.status === 'active' && <Inquiry listing={listing} />
           )}
         </div>
       </div>

@@ -57,6 +57,15 @@ export type Content = {
     seller: string;
     contactSeller: string;
     loginToContact: string;
+    inquire: string;
+    inquiryName: string;
+    inquiryEmail: string;
+    inquiryMessage: string;
+    inquiryPrefill: (title: string, id: number) => string;
+    inquirySend: string;
+    inquirySending: string;
+    inquirySent: string;
+    inquiryError: string;
     sold: string;
     edit: string;
     markSold: string;
@@ -213,6 +222,15 @@ const hu: Content = {
     seller: 'Eladó',
     contactSeller: 'Üzenet az eladónak',
     loginToContact: 'Lépj be az eladó elérhetőségéért',
+    inquire: 'Érdeklődöm',
+    inquiryName: 'Név',
+    inquiryEmail: 'E-mail',
+    inquiryMessage: 'Üzenet',
+    inquiryPrefill: (title, id) => `Érdeklődnék a következő hirdetés iránt: ${title} (#${id}).`,
+    inquirySend: 'Üzenet küldése',
+    inquirySending: 'Küldés…',
+    inquirySent: 'Köszönjük! Megkaptuk az üzenetedet, hamarosan válaszolunk.',
+    inquiryError: 'Nem sikerült elküldeni. Próbáld újra később.',
     sold: 'Elkelt',
     edit: 'Szerkesztés',
     markSold: 'Megjelölés eladottként',
@@ -362,6 +380,15 @@ const en: Content = {
     seller: 'Seller',
     contactSeller: 'Email the seller',
     loginToContact: "Log in to see the seller's contact",
+    inquire: 'Ask about this item',
+    inquiryName: 'Name',
+    inquiryEmail: 'Email',
+    inquiryMessage: 'Message',
+    inquiryPrefill: (title, id) => `I'm interested in this listing: ${title} (#${id}).`,
+    inquirySend: 'Send message',
+    inquirySending: 'Sending…',
+    inquirySent: 'Thank you! We have received your message and will reply soon.',
+    inquiryError: 'The message could not be sent. Please try again later.',
     sold: 'Sold',
     edit: 'Edit',
     markSold: 'Mark as sold',
@@ -511,6 +538,15 @@ const es: Content = {
     seller: 'Vendedor',
     contactSeller: 'Escribir al vendedor',
     loginToContact: 'Entra para ver el contacto del vendedor',
+    inquire: 'Preguntar por este artículo',
+    inquiryName: 'Nombre',
+    inquiryEmail: 'Correo',
+    inquiryMessage: 'Mensaje',
+    inquiryPrefill: (title, id) => `Me interesa este anuncio: ${title} (#${id}).`,
+    inquirySend: 'Enviar mensaje',
+    inquirySending: 'Enviando…',
+    inquirySent: '¡Gracias! Hemos recibido tu mensaje y te responderemos pronto.',
+    inquiryError: 'No se pudo enviar. Inténtalo de nuevo más tarde.',
     sold: 'Vendido',
     edit: 'Editar',
     markSold: 'Marcar como vendido',

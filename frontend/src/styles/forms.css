@@ -104,3 +104,29 @@
     grid-column: 2;
   }
 }
+
+.form__status {
+  color: var(--color-text);
+  font-style: italic;
+}
+
+.form__status.is-error {
+  color: var(--color-danger);
+}
+
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.inquiry {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.inquiry__title {
+  font-size: var(--font-size-xl);
+}

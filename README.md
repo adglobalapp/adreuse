@@ -111,6 +111,7 @@ Ha később másik szolgáltatóra (pl. Brevo) kell váltani, elég a `MAIL_*` s
 | Változó | Mire való |
 |---|---|
 | `CONTACT_MAIL_TO` | Erre a címre megy értesítés minden új kapcsolati üzenetről (üresen hagyva csak mentjük). Javasolt: `info@adglobalapp.com`. A levélküldést lásd fent. |
+| `REGISTRATION_ENABLED` | Új fiókok regisztrációja (alapból `false`). A frontendben ugyanígy kell állítani: `VITE_REGISTRATION_ENABLED`. Kikapcsolva csak a meglévő fiókok (adminok) lépnek be, a látogatók a hirdetésnél „Érdeklődöm” űrlapon írhatnak (Admin → Üzenetek). |
 | `CONTACT_SITES` | Azok az oldalazonosítók, amelyek üzenetet küldhetnek. |
 | `CORS_ALLOWED_ORIGINS` | A többi oldal domainje vesszővel elválasztva (pl. `https://adlingua.org,https://adglobaltransport.com`), ahonnan a böngésző hívhatja az API-t. |
 
