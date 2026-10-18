@@ -1,19 +1,27 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.3em;
+  gap: 0.22em;
   font-family: var(--font-logo);
   font-size: var(--logo-font-size);
   font-weight: var(--font-weight-bold);
   color: var(--color-brand-500);
-  background: linear-gradient(180deg, var(--logo-gradient-from), var(--logo-gradient-to));
+}
+
+/* A színátmenet a szavak dobozán fut: 1em magas sor + 0.2em hely a lelógó száraknak. */
+.logo span {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: transparent;
+  background: var(--logo-gradient-first);
   -webkit-background-clip: text;
   background-clip: text;
 }
 
-.logo span {
-  color: transparent;
-  letter-spacing: -0.01em;
+.logo span:last-child {
+  background-image: var(--logo-gradient-second);
 }
 
 .logo__mark {

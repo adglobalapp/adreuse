@@ -13,9 +13,14 @@
   --color-brand-600: var(--color-brand-to);
   --color-brand-hover: #dc2b19;
 
-  /* Logó: a felirat színátmenete és betűtípusa */
-  --logo-gradient-from: var(--color-brand-from);
-  --logo-gradient-to: var(--color-brand-to);
+  /*
+   * Logó felirat: a hivatalos logóból mért színátmenet. Majdnem függőleges (176°), a betűk tetején
+   * élénkpiros, az alapvonalnál bordó, a lelógó száraknál a legsötétebb; jobbra haladva enyhén
+   * sötétül, ezért a második szó (pl. „Lingua”) eleve sötétebbről indul, mint az „Ad”.
+   * Stop-pontok: 11% ≈ nagybetű teteje, 70% ≈ alapvonal, 88% ≈ lelógó szár alja.
+   */
+  --logo-gradient-first: linear-gradient(176deg, #e72024 0%, #de2124 11%, #a01f20 40%, #7b1919 70%, #5f1111 88%, #561010 100%);
+  --logo-gradient-second: linear-gradient(176deg, #c42324 0%, #bc2222 11%, #8a1c1c 40%, #631313 70%, #571010 88%, #520f0f 100%);
   --font-logo: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
   /* Surfaces & text */
