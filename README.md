@@ -83,11 +83,34 @@ php artisan app:make-admin valaki@example.com --revoke   # jog elvétele
 
 Hirdetést az admin a fenti `PATCH` / `DELETE /api/listings/{id}` végpontokon szerkeszt és töröl; a jogosultságot a `ListingPolicy` adja.
 
+## E-mail küldés (Cloudflare Email Service)
+
+A backend a Cloudflare Email Service SMTP-jén küld (kapcsolati értesítések, később jelszó-visszaállítás). A teljes éles minta: `backend/.env.production.example`.
+
+1. **Küldés bekapcsolása a domainre:** Cloudflare dashboard → Email Service / Email Sending → az `adglobalapp.com` domain hozzáadása („onboarding”). Mivel a domain a Cloudflare-en van, a szükséges DNS-bejegyzéseket (DKIM, SPF) a Cloudflare maga veszi fel; a meglévő Email Routing (továbbítás) mellette tovább működik. A szolgáltatás bétában van, a menü neve változhat.
+2. **API token:** My Profile → API Tokens → Create Token → egyéni token, jogosultság: *Account → Email Sending → Edit*, csak a saját fiókra.
+3. **`backend/.env` a szerveren:**
+   ```
+   MAIL_MAILER=smtp
+   MAIL_SCHEME=smtps
+   MAIL_HOST=smtp.mx.cloudflare.net
+   MAIL_PORT=465
+   MAIL_USERNAME=api_token
+   MAIL_PASSWORD=<a 2. lépés tokenje>
+   MAIL_FROM_ADDRESS=noreply@adglobalapp.com
+   MAIL_FROM_NAME="AdGlobalApp"
+   CONTACT_MAIL_TO=info@adglobalapp.com
+   ```
+   A tokent csak a szerveren lévő `.env`-be írd, gitbe és chatbe ne.
+4. **Kipróbálás:** `php artisan config:clear && php artisan app:test-mail sajat@cim.hu` – ha a levél megérkezik, kész. Hiba esetén a parancs kiírja az okát.
+
+Ha később másik szolgáltatóra (pl. Brevo) kell váltani, elég a `MAIL_*` sorokat átírni, a kódhoz nem kell nyúlni.
+
 ## Beállítások (`backend/.env`)
 
 | Változó | Mire való |
 |---|---|
-| `CONTACT_MAIL_TO` | Erre a címre megy értesítés minden új kapcsolati üzenetről (üresen hagyva csak mentjük). A levélküldéshez a szokásos `MAIL_*` beállítások kellenek. |
+| `CONTACT_MAIL_TO` | Erre a címre megy értesítés minden új kapcsolati üzenetről (üresen hagyva csak mentjük). Javasolt: `info@adglobalapp.com`. A levélküldést lásd fent. |
 | `CONTACT_SITES` | Azok az oldalazonosítók, amelyek üzenetet küldhetnek. |
 | `CORS_ALLOWED_ORIGINS` | A többi oldal domainje vesszővel elválasztva (pl. `https://adlingua.org,https://adglobaltransport.com`), ahonnan a böngésző hívhatja az API-t. |
 
