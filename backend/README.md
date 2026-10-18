@@ -16,7 +16,7 @@ app/Services/Turnstile.php             # Cloudflare Turnstile ellenőrzés
 app/Support/ClientIp.php               # valódi kliens IP (CF-Connecting-IP)
 Dockerfile, docker/                    # éles image: php-fpm + nginx, entrypoint
 database/seeders/CategorySeeder.php    # élesben is futtatható; DemoSeeder csak fejlesztéshez
-.env.production.example                # éles beállítások mintája (Cloudflare SMTP, MariaDB, CORS)
+.env.production.example                # éles beállítások mintája (Brevo SMTP, MariaDB, CORS)
 app/Http/Requests/                     # hirdetés validáció
 app/Http/Resources/                    # JSON válaszok formája
 app/Policies/ListingPolicy.php         # a tulajdonos vagy admin szerkeszthet/törölhet

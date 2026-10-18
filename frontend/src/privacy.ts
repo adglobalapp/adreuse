@@ -77,14 +77,15 @@ const hu: PrivacyContent = {
         'Az adataidat a saját, az Egyesült Királyságban üzemeltetett szerverünkön tároljuk. Az alábbi szolgáltatók adatfeldolgozóként, a mi utasításaink szerint dolgoznak velük:',
       ],
       items: [
-        'Cloudflare, Inc.: az oldal kiszolgálása és védelme, az e-mailek továbbítása és küldése, valamint a Turnstile spamvédelem.',
+        'Cloudflare, Inc.: az oldal kiszolgálása és védelme, a beérkező e-mailek továbbítása, valamint a Turnstile spamvédelem.',
+        'Brevo (Sendinblue SAS, Franciaország): az oldalról küldött e-mailek (például az üzenetedről szóló értesítés) kézbesítése.',
         'E-mail szolgáltatóink, ahová a beérkező leveleket továbbítjuk.',
       ],
     },
     {
       title: 'Adattovábbítás az Egyesült Királyságon kívülre',
       paragraphs: [
-        'A Cloudflare globális hálózata miatt az adatok az Egyesült Királyságon kívül is feldolgozásra kerülhetnek. Ilyenkor a jogszabályok által elismert garanciák (például a brit nemzetközi adattovábbítási megállapodás vagy az uniós általános szerződési feltételek brit kiegészítése) védik őket.',
+        'A Cloudflare globális hálózata miatt az adatok az Egyesült Királyságon kívül is feldolgozásra kerülhetnek. Ilyenkor a jogszabályok által elismert garanciák (például a brit nemzetközi adattovábbítási megállapodás vagy az uniós általános szerződési feltételek brit kiegészítése) védik őket. A Brevo az adatokat az Európai Unióban (Franciaországban) kezeli, amelyet az Egyesült Királyság megfelelő adatvédelmi szintűnek ismer el.',
       ],
     },
     {
@@ -160,14 +161,15 @@ const en: PrivacyContent = {
         'We store your data on our own server operated in the United Kingdom. The following providers process it on our behalf and on our instructions:',
       ],
       items: [
-        'Cloudflare, Inc.: serving and protecting the site, forwarding and sending email, and Turnstile spam protection.',
+        'Cloudflare, Inc.: serving and protecting the site, forwarding incoming email, and Turnstile spam protection.',
+        'Brevo (Sendinblue SAS, France): delivering the emails the site sends (for example the notification about your message).',
         'The email providers we forward incoming messages to.',
       ],
     },
     {
       title: 'Transfers outside the UK',
       paragraphs: [
-        'Because Cloudflare runs a global network, data may be processed outside the UK. In that case it is protected by recognised safeguards, such as the UK International Data Transfer Agreement or the UK Addendum to the EU Standard Contractual Clauses.',
+        'Because Cloudflare runs a global network, data may be processed outside the UK. In that case it is protected by recognised safeguards, such as the UK International Data Transfer Agreement or the UK Addendum to the EU Standard Contractual Clauses. Brevo processes data in the European Union (France), which the UK recognises as providing an adequate level of protection.',
       ],
     },
     {
@@ -243,14 +245,15 @@ const es: PrivacyContent = {
         'Guardamos tus datos en nuestro propio servidor, situado en el Reino Unido. Los siguientes proveedores los tratan en nuestro nombre y siguiendo nuestras instrucciones:',
       ],
       items: [
-        'Cloudflare, Inc.: servir y proteger la web, reenviar y enviar correos y la protección antispam Turnstile.',
+        'Cloudflare, Inc.: servir y proteger la web, reenviar los correos recibidos y la protección antispam Turnstile.',
+        'Brevo (Sendinblue SAS, Francia): entregar los correos que envía la web (por ejemplo, el aviso sobre tu mensaje).',
         'Los proveedores de correo a los que reenviamos los mensajes recibidos.',
       ],
     },
     {
       title: 'Transferencias fuera del Reino Unido',
       paragraphs: [
-        'Como Cloudflare opera una red global, los datos pueden tratarse fuera del Reino Unido. En ese caso están protegidos por garantías reconocidas, como el Acuerdo de Transferencia Internacional de Datos del Reino Unido o el Anexo británico a las Cláusulas Contractuales Tipo de la UE.',
+        'Como Cloudflare opera una red global, los datos pueden tratarse fuera del Reino Unido. En ese caso están protegidos por garantías reconocidas, como el Acuerdo de Transferencia Internacional de Datos del Reino Unido o el Anexo británico a las Cláusulas Contractuales Tipo de la UE. Brevo trata los datos en la Unión Europea (Francia), que el Reino Unido reconoce como de protección adecuada.',
       ],
     },
     {

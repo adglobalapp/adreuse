@@ -10,7 +10,7 @@ class TestMail extends Command
 {
     protected $signature = 'app:test-mail {to : Erre a címre megy a próbalevél}';
 
-    protected $description = 'Próbalevél küldése a beállított levelezővel (pl. Cloudflare Email Service SMTP)';
+    protected $description = 'Próbalevél küldése a beállított levelezővel (pl. Brevo SMTP)';
 
     public function handle(): int
     {
