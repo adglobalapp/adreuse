@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'contact' => [
+        // Erre a címre megy értesítés minden új üzenetről (üresen hagyva csak mentjük).
+        'to' => env('CONTACT_MAIL_TO'),
+        // Az oldalak azonosítói, amelyek üzenetet küldhetnek.
+        'sites' => explode(',', env('CONTACT_SITES', 'adlingua,adtransport,admaintenance,adreuse,adlanding')),
+    ],
+
 ];

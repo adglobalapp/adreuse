@@ -35,6 +35,7 @@ class ListingResource extends JsonResource
                 'email' => $viewer ? $this->user->email : null,
             ]),
             'is_owner' => $viewer?->id === $this->user_id,
+            'can_manage' => $viewer !== null && ($viewer->id === $this->user_id || $viewer->is_admin),
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];

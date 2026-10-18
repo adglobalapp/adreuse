@@ -10,5 +10,6 @@ src/
   auth.tsx            # bejelentkezési állapot (token a localStorage-ban)
   styles/tokens.css   # design tokenek
   pages/              # Home, Browse, ListingDetail, ListingForm, MyListings, Auth, NotFound
+  pages/admin/        # admin felület: Overview, AdminListings, AdminCategories, AdminUsers, AdminMessages
   components/         # Header, Footer, ListingCard, Media (kép/placeholder) …
 ```

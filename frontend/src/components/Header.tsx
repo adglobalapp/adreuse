@@ -52,6 +52,11 @@ export function Header() {
                 <NavLink to="/my" onClick={close}>
                   {t.nav.my}
                 </NavLink>
+                {user.is_admin && (
+                  <NavLink to="/admin" onClick={close}>
+                    {t.nav.admin}
+                  </NavLink>
+                )}
                 <button type="button" className="header__link" onClick={onLogout}>
                   {t.nav.logout}
                 </button>

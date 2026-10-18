@@ -8,6 +8,14 @@ use App\Models\User;
 class ListingPolicy
 {
     /**
+     * Admins can manage every listing.
+     */
+    public function before(User $user): ?bool
+    {
+        return $user->is_admin ? true : null;
+    }
+
+    /**
      * Only the seller can edit their listing.
      */
     public function update(User $user, Listing $listing): bool

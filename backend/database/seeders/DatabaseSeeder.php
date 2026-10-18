@@ -37,6 +37,11 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Demó Eladó', 'password' => 'password'],
         );
 
+        User::updateOrCreate(
+            ['email' => 'admin@adreuse.test'],
+            ['name' => 'Admin', 'password' => 'password'],
+        )->forceFill(['is_admin' => true])->save();
+
         if (Listing::exists()) {
             return;
         }

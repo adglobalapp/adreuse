@@ -9,7 +9,7 @@ export const locales: Record<Lang, string> = { hu: 'hu-HU', en: 'en-GB', es: 'es
 export type Condition = 'new' | 'like_new' | 'good' | 'fair';
 
 export type Content = {
-  nav: { browse: string; sell: string; my: string; login: string; logout: string };
+  nav: { browse: string; sell: string; my: string; admin: string; login: string; logout: string };
   home: {
     eyebrow: string;
     lines: [string, string, string];
@@ -115,6 +115,49 @@ export type Content = {
     notFoundText: string;
     home: string;
   };
+  admin: {
+    label: string;
+    title: string;
+    tabs: { overview: string; listings: string; categories: string; users: string; messages: string };
+    stats: { users: string; active: string; sold: string; week: string; categories: string; unread: string };
+    search: string;
+    allStatuses: string;
+    allSites: string;
+    onlyUnread: string;
+    columns: {
+      title: string;
+      category: string;
+      price: string;
+      seller: string;
+      status: string;
+      actions: string;
+      name: string;
+      slug: string;
+      position: string;
+      listings: string;
+      email: string;
+      role: string;
+      site: string;
+      date: string;
+    };
+    edit: string;
+    save: string;
+    cancel: string;
+    delete: string;
+    confirm: string;
+    add: string;
+    newCategory: string;
+    categoryHasListings: string;
+    makeAdmin: string;
+    removeAdmin: string;
+    adminRole: string;
+    userRole: string;
+    you: string;
+    markRead: string;
+    markUnread: string;
+    reply: string;
+    empty: string;
+  };
   conditions: Record<Condition, string>;
   /** Kategórianevek a backend slugjai szerint; ha egy slug hiányzik, a backend neve jelenik meg. */
   categories: Record<string, string>;
@@ -122,7 +165,7 @@ export type Content = {
 };
 
 const hu: Content = {
-  nav: { browse: 'Hirdetések', sell: 'Eladok', my: 'Hirdetéseim', login: 'Belépés', logout: 'Kilépés' },
+  nav: { browse: 'Hirdetések', sell: 'Eladok', my: 'Hirdetéseim', admin: 'Admin', login: 'Belépés', logout: 'Kilépés' },
   home: {
     eyebrow: 'Használt tárgyak piactere',
     lines: ['Add', 'tovább,', 'vedd újra.'],
@@ -228,6 +271,34 @@ const hu: Content = {
     notFoundText: 'A keresett oldal vagy hirdetés nem található.',
     home: 'Főoldal',
   },
+  admin: {
+    label: 'Admin',
+    title: 'Vezérlőpult',
+    tabs: { overview: 'Áttekintés', listings: 'Hirdetések', categories: 'Kategóriák', users: 'Felhasználók', messages: 'Üzenetek' },
+    stats: { users: 'felhasználó', active: 'aktív hirdetés', sold: 'eladott', week: 'új hirdetés (7 nap)', categories: 'kategória', unread: 'olvasatlan üzenet' },
+    search: 'Keresés…',
+    allStatuses: 'Minden állapot',
+    allSites: 'Minden oldal',
+    onlyUnread: 'Csak olvasatlan',
+    columns: { title: 'Cím', category: 'Kategória', price: 'Ár', seller: 'Eladó', status: 'Állapot', actions: 'Műveletek', name: 'Név', slug: 'Azonosító', position: 'Sorrend', listings: 'Hirdetés', email: 'E-mail', role: 'Szerep', site: 'Oldal', date: 'Dátum' },
+    edit: 'Szerkesztés',
+    save: 'Mentés',
+    cancel: 'Mégse',
+    delete: 'Törlés',
+    confirm: 'Biztos?',
+    add: 'Hozzáadás',
+    newCategory: 'Új kategória neve',
+    categoryHasListings: 'Csak üres kategória törölhető.',
+    makeAdmin: 'Admin jog',
+    removeAdmin: 'Jog elvétele',
+    adminRole: 'Admin',
+    userRole: 'Felhasználó',
+    you: 'te',
+    markRead: 'Olvasott',
+    markUnread: 'Olvasatlan',
+    reply: 'Válasz',
+    empty: 'Nincs találat.',
+  },
   conditions: { new: 'Új', like_new: 'Újszerű', good: 'Jó', fair: 'Használt' },
   categories: {
     electronics: 'Elektronika',
@@ -243,7 +314,7 @@ const hu: Content = {
 };
 
 const en: Content = {
-  nav: { browse: 'Listings', sell: 'Sell', my: 'My listings', login: 'Log in', logout: 'Log out' },
+  nav: { browse: 'Listings', sell: 'Sell', my: 'My listings', admin: 'Admin', login: 'Log in', logout: 'Log out' },
   home: {
     eyebrow: 'Second-hand marketplace',
     lines: ['Pass it', 'on,', 'buy it again.'],
@@ -349,6 +420,34 @@ const en: Content = {
     notFoundText: "The page or listing you're looking for doesn't exist.",
     home: 'Home',
   },
+  admin: {
+    label: 'Admin',
+    title: 'Dashboard',
+    tabs: { overview: 'Overview', listings: 'Listings', categories: 'Categories', users: 'Users', messages: 'Messages' },
+    stats: { users: 'users', active: 'active listings', sold: 'sold', week: 'new listings (7 days)', categories: 'categories', unread: 'unread messages' },
+    search: 'Search…',
+    allStatuses: 'All statuses',
+    allSites: 'All sites',
+    onlyUnread: 'Unread only',
+    columns: { title: 'Title', category: 'Category', price: 'Price', seller: 'Seller', status: 'Status', actions: 'Actions', name: 'Name', slug: 'Slug', position: 'Order', listings: 'Listings', email: 'Email', role: 'Role', site: 'Site', date: 'Date' },
+    edit: 'Edit',
+    save: 'Save',
+    cancel: 'Cancel',
+    delete: 'Delete',
+    confirm: 'Sure?',
+    add: 'Add',
+    newCategory: 'New category name',
+    categoryHasListings: 'Only empty categories can be deleted.',
+    makeAdmin: 'Make admin',
+    removeAdmin: 'Remove admin',
+    adminRole: 'Admin',
+    userRole: 'User',
+    you: 'you',
+    markRead: 'Mark read',
+    markUnread: 'Mark unread',
+    reply: 'Reply',
+    empty: 'Nothing found.',
+  },
   conditions: { new: 'New', like_new: 'Like new', good: 'Good', fair: 'Used' },
   categories: {
     electronics: 'Electronics',
@@ -364,7 +463,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: { browse: 'Anuncios', sell: 'Vender', my: 'Mis anuncios', login: 'Entrar', logout: 'Salir' },
+  nav: { browse: 'Anuncios', sell: 'Vender', my: 'Mis anuncios', admin: 'Admin', login: 'Entrar', logout: 'Salir' },
   home: {
     eyebrow: 'Mercado de segunda mano',
     lines: ['Pásalo,', 'dale', 'otra vida.'],
@@ -469,6 +568,34 @@ const es: Content = {
     notFoundTitle: 'Página no encontrada.',
     notFoundText: 'La página o el anuncio que buscas no existe.',
     home: 'Inicio',
+  },
+  admin: {
+    label: 'Admin',
+    title: 'Panel',
+    tabs: { overview: 'Resumen', listings: 'Anuncios', categories: 'Categorías', users: 'Usuarios', messages: 'Mensajes' },
+    stats: { users: 'usuarios', active: 'anuncios activos', sold: 'vendidos', week: 'anuncios nuevos (7 días)', categories: 'categorías', unread: 'mensajes sin leer' },
+    search: 'Buscar…',
+    allStatuses: 'Todos los estados',
+    allSites: 'Todas las webs',
+    onlyUnread: 'Solo sin leer',
+    columns: { title: 'Título', category: 'Categoría', price: 'Precio', seller: 'Vendedor', status: 'Estado', actions: 'Acciones', name: 'Nombre', slug: 'Identificador', position: 'Orden', listings: 'Anuncios', email: 'Correo', role: 'Rol', site: 'Web', date: 'Fecha' },
+    edit: 'Editar',
+    save: 'Guardar',
+    cancel: 'Cancelar',
+    delete: 'Eliminar',
+    confirm: '¿Seguro?',
+    add: 'Añadir',
+    newCategory: 'Nombre de la nueva categoría',
+    categoryHasListings: 'Solo se pueden eliminar categorías vacías.',
+    makeAdmin: 'Hacer admin',
+    removeAdmin: 'Quitar admin',
+    adminRole: 'Admin',
+    userRole: 'Usuario',
+    you: 'tú',
+    markRead: 'Marcar leído',
+    markUnread: 'Marcar no leído',
+    reply: 'Responder',
+    empty: 'Sin resultados.',
   },
   conditions: { new: 'Nuevo', like_new: 'Como nuevo', good: 'Bueno', fair: 'Usado' },
   categories: {

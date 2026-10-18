@@ -2,9 +2,9 @@
 
 import type { Condition } from './content';
 
-export type User = { id: number; name: string; email: string };
+export type User = { id: number; name: string; email: string; is_admin: boolean };
 
-export type Category = { id: number; slug: string; name: string; listings_count?: number };
+export type Category = { id: number; slug: string; name: string; position?: number; listings_count?: number };
 
 export type Listing = {
   id: number;
@@ -19,6 +19,8 @@ export type Listing = {
   category: Category;
   seller: { id: number; name: string; email: string | null };
   is_owner: boolean;
+  /** A tulajdonos vagy egy admin szerkesztheti / törölheti. */
+  can_manage: boolean;
   created_at: string;
   updated_at: string;
 };
@@ -37,6 +39,27 @@ export type ListingFilters = {
   sort?: string;
   page?: string;
   per_page?: string;
+};
+
+export type AdminStats = {
+  users: number;
+  listings_active: number;
+  listings_sold: number;
+  listings_last_7_days: number;
+  categories: number;
+  messages_unread: number;
+};
+
+export type AdminUser = User & { listings_count: number; created_at: string };
+
+export type ContactMessage = {
+  id: number;
+  site: string;
+  name: string;
+  email: string;
+  message: string;
+  read: boolean;
+  created_at: string;
 };
 
 const BASE_URL = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '') + '/api';
@@ -86,7 +109,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 const json = (data: unknown) => JSON.stringify(data);
 
-function query(filters: ListingFilters): string {
+function query(filters: Record<string, string | undefined>): string {
   const params = new URLSearchParams();
   Object.entries(filters).forEach(([k, v]) => v && params.set(k, v));
   const qs = params.toString();
@@ -116,4 +139,24 @@ export const api = {
   setStatus: (id: number, status: Listing['status']) =>
     request<{ data: Listing }>(`/listings/${id}`, { method: 'PATCH', body: json({ status }) }).then((r) => r.data),
   deleteListing: (id: number) => request<void>(`/listings/${id}`, { method: 'DELETE' }),
+
+  admin: {
+    stats: () => request<{ data: AdminStats }>('/admin/stats').then((r) => r.data),
+    listings: (filters: { q?: string; status?: string; page?: string } = {}) =>
+      request<Paginated<Listing>>(`/admin/listings${query(filters)}`),
+    categories: () => request<{ data: Category[] }>('/admin/categories').then((r) => r.data),
+    createCategory: (data: { name: string }) =>
+      request<{ data: Category }>('/admin/categories', { method: 'POST', body: json(data) }).then((r) => r.data),
+    updateCategory: (id: number, data: { name?: string; position?: number }) =>
+      request<{ data: Category }>(`/admin/categories/${id}`, { method: 'PATCH', body: json(data) }).then((r) => r.data),
+    deleteCategory: (id: number) => request<void>(`/admin/categories/${id}`, { method: 'DELETE' }),
+    users: (filters: { q?: string; page?: string } = {}) => request<Paginated<AdminUser>>(`/admin/users${query(filters)}`),
+    setAdmin: (id: number, is_admin: boolean) =>
+      request<{ data: AdminUser }>(`/admin/users/${id}`, { method: 'PATCH', body: json({ is_admin }) }).then((r) => r.data),
+    messages: (filters: { site?: string; unread?: string; page?: string } = {}) =>
+      request<Paginated<ContactMessage> & { meta: { unread: number } }>(`/admin/messages${query(filters)}`),
+    setRead: (id: number, read: boolean) =>
+      request<{ data: ContactMessage }>(`/admin/messages/${id}`, { method: 'PATCH', body: json({ read }) }).then((r) => r.data),
+    deleteMessage: (id: number) => request<void>(`/admin/messages/${id}`, { method: 'DELETE' }),
+  },
 };

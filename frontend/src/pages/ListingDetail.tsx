@@ -83,7 +83,7 @@ export function ListingDetail() {
 
           <p className="detail__desc">{listing.description}</p>
 
-          {listing.is_owner ? (
+          {listing.can_manage ? (
             <div className="btn-row">
               <Link to={`/listings/${listing.id}/edit`} className="btn btn--primary">
                 {t.listing.edit}

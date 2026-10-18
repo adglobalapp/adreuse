@@ -3,6 +3,12 @@ import { Route, Routes, useLocation } from 'react-router';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { RequireAuth } from './components/RequireAuth';
+import { Admin } from './pages/admin/Admin';
+import { AdminCategories } from './pages/admin/AdminCategories';
+import { AdminListings } from './pages/admin/AdminListings';
+import { AdminMessages } from './pages/admin/AdminMessages';
+import { AdminUsers } from './pages/admin/AdminUsers';
+import { Overview } from './pages/admin/Overview';
 import { AuthPage } from './pages/Auth';
 import { Browse } from './pages/Browse';
 import { Home } from './pages/Home';
@@ -28,6 +34,13 @@ export function App() {
           <Route path="/listings/:id/edit" element={<RequireAuth><ListingForm /></RequireAuth>} />
           <Route path="/sell" element={<RequireAuth><ListingForm /></RequireAuth>} />
           <Route path="/my" element={<RequireAuth><MyListings /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAuth admin><Admin /></RequireAuth>}>
+            <Route index element={<Overview />} />
+            <Route path="listings" element={<AdminListings />} />
+            <Route path="categories" element={<AdminCategories />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="messages" element={<AdminMessages />} />
+          </Route>
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/register" element={<AuthPage mode="register" />} />
           <Route path="*" element={<NotFound />} />

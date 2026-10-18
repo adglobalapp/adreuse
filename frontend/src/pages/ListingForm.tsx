@@ -17,7 +17,7 @@ export function ListingForm() {
   const existing = useAsync(() => (id ? api.listing(id) : Promise.resolve(null)), [id]);
 
   if (existing.loading) return <p className="container page notice">{t.common.loading}</p>;
-  if (id && (!existing.data || !existing.data.is_owner)) return <NotFound />;
+  if (id && (!existing.data || !existing.data.can_manage)) return <NotFound />;
 
   return <ListingFormInner listing={existing.data} />;
 }
