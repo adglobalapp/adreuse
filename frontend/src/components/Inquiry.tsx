@@ -1,14 +1,17 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { api, type Listing } from '../api';
 import { useI18n } from '../i18n';
+import { privacy } from '../privacy';
 import { Icon } from './Icon';
+import { Turnstile, type TurnstileHandle } from './Turnstile';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 /** Érdeklődő űrlap vendégeknek, amíg nincs regisztráció: a kapcsolati API-n át az admin felületre érkezik. */
 export function Inquiry({ listing }: { listing: Listing }) {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
   const [status, setStatus] = useState<Status>('idle');
+  const turnstile = useRef<TurnstileHandle>(null);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,11 +19,19 @@ export function Inquiry({ listing }: { listing: Listing }) {
     const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
     setStatus('sending');
     try {
-      await api.contact({ name: data.name, email: data.email, message: data.message, website: data.website });
+      await api.contact({
+        name: data.name,
+        email: data.email,
+        message: data.message,
+        website: data.website,
+        'cf-turnstile-response': data['cf-turnstile-response'],
+      });
       form.reset();
       setStatus('sent');
     } catch {
       setStatus('error');
+    } finally {
+      turnstile.current?.reset();
     }
   };
 
@@ -49,6 +60,7 @@ export function Inquiry({ listing }: { listing: Listing }) {
       </label>
       {/* Csapda mező a spam botoknak: ember nem látja, nem tölti ki. */}
       <input className="form__trap" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+      <Turnstile ref={turnstile} />
       <button type="submit" className="btn btn--primary" disabled={status === 'sending'}>
         {status === 'sending' ? t.listing.inquirySending : t.listing.inquirySend} <Icon name="arrow" size={16} />
       </button>
@@ -57,6 +69,9 @@ export function Inquiry({ listing }: { listing: Listing }) {
           {t.listing.inquiryError}
         </p>
       )}
+      <p className="form__note">
+        {privacy[lang].formNote} <a href="/privacy">{privacy[lang].linkLabel}</a>
+      </p>
     </form>
   );
 }

@@ -35,11 +35,18 @@ return [
         ],
     ],
 
+    'turnstile' => [
+        // Cloudflare Turnstile titkos kulcs (a nyilvános site key a frontendek buildjébe kerül).
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
+
     'contact' => [
         // Erre a címre megy értesítés minden új üzenetről (üresen hagyva csak mentjük).
         'to' => env('CONTACT_MAIL_TO'),
         // Az oldalak azonosítói, amelyek üzenetet küldhetnek.
         'sites' => explode(',', env('CONTACT_SITES', 'adlingua,adtransport,admaintenance,adreuse,adlanding')),
+        // Ennyi hónap után az üzenetek automatikusan törlődnek (adatvédelmi tájékoztató: megőrzési idő).
+        'retention_months' => (int) env('CONTACT_RETENTION_MONTHS', 24),
     ],
 
 ];

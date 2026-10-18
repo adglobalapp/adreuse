@@ -5,4 +5,6 @@ interface ImportMetaEnv {
   readonly VITE_API_URL?: string;
   /** 'true' esetén lehet regisztrálni; alapból ki van kapcsolva. */
   readonly VITE_REGISTRATION_ENABLED?: string;
+  /** Cloudflare Turnstile nyilvános site key. Üresen a widget nem jelenik meg. */
+  readonly VITE_TURNSTILE_SITE_KEY?: string;
 }
