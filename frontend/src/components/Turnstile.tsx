@@ -63,7 +63,11 @@ export const Turnstile = forwardRef<TurnstileHandle>(function Turnstile(_, ref) 
       });
     return () => {
       cancelled = true;
-      if (widget.current) window.turnstile?.remove(widget.current);
+      try {
+        if (widget.current) window.turnstile?.remove(widget.current);
+      } catch {
+        // már eltávolított widget: nincs teendő
+      }
       widget.current = null;
     };
   }, [lang]);

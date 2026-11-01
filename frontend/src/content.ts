@@ -134,6 +134,7 @@ export type Content = {
     notFoundTitle: string;
     notFoundText: string;
     home: string;
+    reload: string;
   };
   admin: {
     label: string;
@@ -373,6 +374,7 @@ const hu: Content = {
     notFoundTitle: 'Nincs ilyen oldal.',
     notFoundText: 'A keresett oldal vagy hirdetés nem található.',
     home: 'Főoldal',
+    reload: 'Újratöltés',
   },
   admin: {
     label: 'Admin',
@@ -610,6 +612,7 @@ const en: Content = {
     notFoundTitle: 'Page not found.',
     notFoundText: "The page or listing you're looking for doesn't exist.",
     home: 'Home',
+    reload: 'Reload',
   },
   admin: {
     label: 'Admin',
@@ -847,6 +850,7 @@ const es: Content = {
     notFoundTitle: 'Página no encontrada.',
     notFoundText: 'La página o el anuncio que buscas no existe.',
     home: 'Inicio',
+    reload: 'Recargar',
   },
   admin: {
     label: 'Admin',
