@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { brand } from '../brand';
 import { useI18n } from '../i18n';
 import { privacy } from '../privacy';
@@ -31,7 +32,10 @@ export function Footer() {
         </div>
 
         <p className="footer__links">
-          <a href="/privacy">{privacy[lang].linkLabel}</a>
+          <Link to="/terms">{t.legal.terms}</Link>
+          <Link to="/returns">{t.legal.returns}</Link>
+          <Link to="/delivery">{t.legal.shipping}</Link>
+          <Link to="/privacy">{privacy[lang].linkLabel}</Link>
         </p>
 
         <p className="footer__copy">

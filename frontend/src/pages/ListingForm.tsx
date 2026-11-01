@@ -3,12 +3,14 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { api, ApiError, type Listing } from '../api';
 import { Icon } from '../components/Icon';
 import { PageHead } from '../components/PageHead';
-import type { Condition } from '../content';
+import type { Condition, SizeKey } from '../content';
+import { toMinor } from '../format';
 import { useI18n } from '../i18n';
 import { useAsync } from '../useAsync';
 import { NotFound } from './NotFound';
 
 const CONDITIONS: Condition[] = ['new', 'like_new', 'good', 'fair'];
+const SIZES: SizeKey[] = ['small', 'medium', 'large', 'custom'];
 
 /** Új hirdetés (/sell) és szerkesztés (/listings/:id/edit) közös űrlapja. */
 export function ListingForm() {
@@ -33,6 +35,13 @@ function ListingFormInner({ listing }: { listing: Listing | null }) {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
+    // Az árat fontban írják be, az API pennyt vár
+    const price = toMinor(String(form.get('price') ?? ''));
+    if (price === null) {
+      setErrors({ price: [t.form.priceInvalid] });
+      return;
+    }
+    form.set('price', String(price));
     const image = form.get('image');
     if (image instanceof File && image.size === 0) form.delete('image');
 
@@ -98,7 +107,15 @@ function ListingFormInner({ listing }: { listing: Listing | null }) {
         <div className="form__row">
           <label className="field">
             <span>{t.form.price}</span>
-            <input name="price" type="number" required min={0} step={1} defaultValue={listing?.price} />
+            <input
+              name="price"
+              type="number"
+              required
+              min={0}
+              step={0.01}
+              inputMode="decimal"
+              defaultValue={listing ? (listing.price / 100).toFixed(2) : undefined}
+            />
             {error('price')}
           </label>
           <label className="field">
@@ -107,6 +124,19 @@ function ListingFormInner({ listing }: { listing: Listing | null }) {
             {error('location')}
           </label>
         </div>
+
+        <label className="field">
+          <span>{t.form.shippingSize}</span>
+          <select name="shipping_size" required defaultValue={listing?.shipping_size ?? 'small'}>
+            {SIZES.map((size) => (
+              <option key={size} value={size}>
+                {t.sizes[size]}
+              </option>
+            ))}
+          </select>
+          <small className="field__hint">{t.form.shippingSizeHint}</small>
+          {error('shipping_size')}
+        </label>
 
         <label className="field">
           <span>{t.form.description}</span>

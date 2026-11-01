@@ -7,6 +7,7 @@ use App\Http\Requests\StoreListingRequest;
 use App\Http\Requests\UpdateListingRequest;
 use App\Http\Resources\ListingResource;
 use App\Models\Listing;
+use App\Support\ImageSanitizer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -120,7 +121,7 @@ class ListingController extends Controller
 
     private function storeImage(?UploadedFile $file): ?string
     {
-        return $file?->store('listings', 'public') ?: null;
+        return $file ? ImageSanitizer::store($file) : null;
     }
 
     private function deleteImage(?string $path): void

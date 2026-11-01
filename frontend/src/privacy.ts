@@ -29,7 +29,7 @@ const hu: PrivacyContent = {
   linkLabel: 'Adatvédelem',
   formNote: 'Az üzenetedet csak a megkeresésed megválaszolására használjuk.',
   title: 'Adatvédelmi tájékoztató',
-  updated: 'Utolsó frissítés: 2026. október 18.',
+  updated: 'Utolsó frissítés: 2026. november 1.',
   intro: `Ez a tájékoztató leírja, hogyan kezeljük a személyes adataidat, amikor a(z) ${SITE} oldalt használod.`,
   sections: [
     {
@@ -49,6 +49,7 @@ const hu: PrivacyContent = {
           ? [
               'Ha fiókod van: a nevedet, e-mail címedet és a jelszavad titkosított (visszafejthetetlen) változatát.',
               'A feladott hirdetések tartalmát és képeit, amelyek nyilvánosan megjelennek az oldalon.',
+              'Ha vásárolsz: a nevedet, e-mail címedet, telefonszámodat, szállítási címedet és a rendelés adatait. A kártyaadataidat a Stripe kezeli, mi nem látjuk őket.',
             ]
           : []),
       ],
@@ -58,7 +59,7 @@ const hu: PrivacyContent = {
       items: [
         'A megkeresésed megválaszolására: jogos érdekünk alapján, illetve ha ajánlatot kérsz, a szerződéskötést megelőző lépésként.',
         'Az oldal biztonságának megőrzésére és a spam kiszűrésére: jogos érdekünk alapján.',
-        ...(ACCOUNTS ? ['A fiókod és a hirdetéseid kezelésére: a felhasználási szerződés teljesítéséhez.'] : []),
+        ...(ACCOUNTS ? ['A fiókod és a hirdetéseid kezelésére: a felhasználási szerződés teljesítéséhez.', 'A rendelésed teljesítésére és kiszállítására: az adásvételi szerződés teljesítéséhez; a számviteli nyilvántartásra: jogi kötelezettség alapján.'] : []),
         'Hírlevelet nem küldünk, az adataidat nem adjuk el, és marketingcélra nem használjuk.',
       ],
     },
@@ -68,7 +69,7 @@ const hu: PrivacyContent = {
         'A kapcsolati üzeneteket legfeljebb 24 hónapig; utána automatikusan töröljük őket.',
         'Az e-mailben folytatott levelezést addig, amíg az ügy intézéséhez vagy jogi kötelezettség teljesítéséhez szükséges.',
         'A szerver technikai naplóit legfeljebb 30 napig.',
-        ...(ACCOUNTS ? ['A fiók adatait a fiók törléséig; a törölt hirdetéseket és képeiket azonnal eltávolítjuk.'] : []),
+        ...(ACCOUNTS ? ['A fiók adatait a fiók törléséig; a törölt hirdetéseket és képeiket azonnal eltávolítjuk.', 'A rendelések adatait 6 évig, ahogy a brit adószabályok (HMRC) előírják.'] : []),
       ],
     },
     {
@@ -80,6 +81,7 @@ const hu: PrivacyContent = {
         'Cloudflare, Inc.: az oldal kiszolgálása és védelme, a beérkező e-mailek továbbítása, valamint a Turnstile spamvédelem.',
         'Brevo (Sendinblue SAS, Franciaország): az oldalról küldött e-mailek (például az üzenetedről szóló értesítés) kézbesítése.',
         'E-mail szolgáltatóink, ahová a beérkező leveleket továbbítjuk.',
+        ...(ACCOUNTS ? ['Stripe Payments Europe, Ltd. (Írország): a fizetések feldolgozása és a csalások kiszűrése.', 'A futárszolgálat, amellyel a csomagot küldjük: a név, cím és telefonszám a kézbesítéshez.'] : []),
       ],
     },
     {
@@ -91,7 +93,7 @@ const hu: PrivacyContent = {
     {
       title: 'Sütik és helyi tárolás',
       paragraphs: [
-        `Analitikai vagy hirdetési sütiket nem használunk. A böngésződben csak a választott nyelvet tároljuk${ACCOUNTS ? ', belépés után pedig a bejelentkezést' : ''}. A Cloudflare Turnstile a botok kiszűréséhez a működéshez szükséges adatokat tárolhat; ezek nélkül az űrlap nem küldhető el biztonságosan.`,
+        `Analitikai vagy hirdetési sütiket nem használunk. A böngésződben csak a választott nyelvet tároljuk${ACCOUNTS ? ', belépés után pedig a bejelentkezést' : ''}. A Cloudflare Turnstile a botok kiszűréséhez a működéshez szükséges adatokat tárolhat; ezek nélkül az űrlap nem küldhető el biztonságosan.${ACCOUNTS ? ' A Stripe fizetőoldala a csalások megelőzéséhez saját, a működéshez szükséges sütiket használ.' : ''}`,
       ],
     },
     {
@@ -113,7 +115,7 @@ const en: PrivacyContent = {
   linkLabel: 'Privacy',
   formNote: 'We only use your message to reply to your enquiry.',
   title: 'Privacy policy',
-  updated: 'Last updated: 18 October 2026',
+  updated: 'Last updated: 1 November 2026',
   intro: `This policy explains how we handle your personal data when you use ${SITE}.`,
   sections: [
     {
@@ -133,6 +135,7 @@ const en: PrivacyContent = {
           ? [
               'If you have an account: your name, email address and a one-way encrypted (hashed) version of your password.',
               'The content and photos of the listings you post, which are shown publicly on the site.',
+              'If you buy something: your name, email address, phone number, delivery address and the order details. Your card details are handled by Stripe; we never see them.',
             ]
           : []),
       ],
@@ -142,7 +145,7 @@ const en: PrivacyContent = {
       items: [
         'To reply to your enquiry: our legitimate interests, or, when you ask for a quote, steps taken at your request before entering into a contract.',
         'To keep the site secure and filter out spam: our legitimate interests.',
-        ...(ACCOUNTS ? ['To run your account and listings: performance of our terms of use (a contract).'] : []),
+        ...(ACCOUNTS ? ['To run your account and listings: performance of our terms of use (a contract).', 'To fulfil and deliver your order: performance of the sales contract; to keep accounting records: legal obligation.'] : []),
         'We do not send newsletters, sell your data or use it for marketing.',
       ],
     },
@@ -152,7 +155,7 @@ const en: PrivacyContent = {
         'Contact messages: up to 24 months, after which they are deleted automatically.',
         'Email correspondence: as long as needed to deal with the matter or to meet legal obligations.',
         'Technical server logs: up to 30 days.',
-        ...(ACCOUNTS ? ['Account data: until the account is deleted; deleted listings and their photos are removed immediately.'] : []),
+        ...(ACCOUNTS ? ['Account data: until the account is deleted; deleted listings and their photos are removed immediately.', 'Order records: 6 years, as required by UK tax rules (HMRC).'] : []),
       ],
     },
     {
@@ -164,6 +167,7 @@ const en: PrivacyContent = {
         'Cloudflare, Inc.: serving and protecting the site, forwarding incoming email, and Turnstile spam protection.',
         'Brevo (Sendinblue SAS, France): delivering the emails the site sends (for example the notification about your message).',
         'The email providers we forward incoming messages to.',
+        ...(ACCOUNTS ? ['Stripe Payments Europe, Ltd. (Ireland): processing payments and preventing fraud.', 'The carrier that delivers your parcel: your name, address and phone number for delivery.'] : []),
       ],
     },
     {
@@ -175,7 +179,7 @@ const en: PrivacyContent = {
     {
       title: 'Cookies and local storage',
       paragraphs: [
-        `We do not use analytics or advertising cookies. In your browser we only store your language choice${ACCOUNTS ? ' and, once you log in, your session' : ''}. Cloudflare Turnstile may store data that is strictly necessary to tell people from bots; without it the form cannot be sent securely.`,
+        `We do not use analytics or advertising cookies. In your browser we only store your language choice${ACCOUNTS ? ' and, once you log in, your session' : ''}. Cloudflare Turnstile may store data that is strictly necessary to tell people from bots; without it the form cannot be sent securely.${ACCOUNTS ? ' Stripe’s checkout page uses its own strictly necessary cookies to prevent fraud.' : ''}`,
       ],
     },
     {
@@ -197,7 +201,7 @@ const es: PrivacyContent = {
   linkLabel: 'Privacidad',
   formNote: 'Solo usamos tu mensaje para responder a tu consulta.',
   title: 'Política de privacidad',
-  updated: 'Última actualización: 18 de octubre de 2026',
+  updated: 'Última actualización: 1 de noviembre de 2026',
   intro: `Esta política explica cómo tratamos tus datos personales cuando usas ${SITE}.`,
   sections: [
     {
@@ -217,6 +221,7 @@ const es: PrivacyContent = {
           ? [
               'Si tienes una cuenta: tu nombre, tu correo y una versión cifrada de forma irreversible de tu contraseña.',
               'El contenido y las fotos de los anuncios que publicas, que se muestran públicamente.',
+              'Si compras: tu nombre, correo, teléfono, dirección de entrega y los datos del pedido. Los datos de tu tarjeta los gestiona Stripe; nunca los vemos.',
             ]
           : []),
       ],
@@ -226,7 +231,7 @@ const es: PrivacyContent = {
       items: [
         'Para responder a tu consulta: nuestro interés legítimo o, si pides un presupuesto, la aplicación de medidas precontractuales a petición tuya.',
         'Para mantener la web segura y filtrar el spam: nuestro interés legítimo.',
-        ...(ACCOUNTS ? ['Para gestionar tu cuenta y tus anuncios: la ejecución de las condiciones de uso (un contrato).'] : []),
+        ...(ACCOUNTS ? ['Para gestionar tu cuenta y tus anuncios: la ejecución de las condiciones de uso (un contrato).', 'Para tramitar y entregar tu pedido: la ejecución del contrato de compraventa; para la contabilidad: una obligación legal.'] : []),
         'No enviamos boletines, no vendemos tus datos ni los usamos con fines de marketing.',
       ],
     },
@@ -236,7 +241,7 @@ const es: PrivacyContent = {
         'Los mensajes de contacto: hasta 24 meses; después se eliminan automáticamente.',
         'La correspondencia por correo: el tiempo necesario para gestionar el asunto o cumplir obligaciones legales.',
         'Los registros técnicos del servidor: hasta 30 días.',
-        ...(ACCOUNTS ? ['Los datos de la cuenta: hasta que se elimina la cuenta; los anuncios eliminados y sus fotos se borran de inmediato.'] : []),
+        ...(ACCOUNTS ? ['Los datos de la cuenta: hasta que se elimina la cuenta; los anuncios eliminados y sus fotos se borran de inmediato.', 'Los datos de los pedidos: 6 años, como exige la normativa fiscal británica (HMRC).'] : []),
       ],
     },
     {
@@ -248,6 +253,7 @@ const es: PrivacyContent = {
         'Cloudflare, Inc.: servir y proteger la web, reenviar los correos recibidos y la protección antispam Turnstile.',
         'Brevo (Sendinblue SAS, Francia): entregar los correos que envía la web (por ejemplo, el aviso sobre tu mensaje).',
         'Los proveedores de correo a los que reenviamos los mensajes recibidos.',
+        ...(ACCOUNTS ? ['Stripe Payments Europe, Ltd. (Irlanda): procesar los pagos y prevenir el fraude.', 'El transportista que entrega tu paquete: tu nombre, dirección y teléfono para la entrega.'] : []),
       ],
     },
     {
@@ -259,7 +265,7 @@ const es: PrivacyContent = {
     {
       title: 'Cookies y almacenamiento local',
       paragraphs: [
-        `No usamos cookies analíticas ni publicitarias. En tu navegador solo guardamos el idioma elegido${ACCOUNTS ? ' y, al iniciar sesión, tu sesión' : ''}. Cloudflare Turnstile puede guardar datos estrictamente necesarios para distinguir personas de bots; sin ellos el formulario no puede enviarse de forma segura.`,
+        `No usamos cookies analíticas ni publicitarias. En tu navegador solo guardamos el idioma elegido${ACCOUNTS ? ' y, al iniciar sesión, tu sesión' : ''}. Cloudflare Turnstile puede guardar datos estrictamente necesarios para distinguir personas de bots; sin ellos el formulario no puede enviarse de forma segura.${ACCOUNTS ? ' La página de pago de Stripe usa sus propias cookies estrictamente necesarias para prevenir el fraude.' : ''}`,
       ],
     },
     {

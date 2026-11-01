@@ -59,6 +59,11 @@ php artisan app:make-admin valaki@example.com --revoke   # jog elvétele
   - Kategóriák: hozzáadás, átnevezés, sorrend; csak üres kategória törölhető
   - Felhasználók: keresés, admin jog adása és elvétele (a sajátját senki nem veheti el)
   - Üzenetek: az összes AdGlobalApp oldal kapcsolati űrlapjáról érkező üzenetek, olvasott/olvasatlan, válasz e-mailben, törlés
+- **Webshop (Stripe Checkout):** csak a cég értékesít; „Megveszem” → ország (UK vagy EU) → összesítő, szállítás, vám, elállási jog, ÁSZF-elfogadás → fizetés a Stripe oldalán. A tétel 30 percre foglalt, sikeres fizetés után (webhook) „elkelt” lesz, a vevő és az admin e-mailt kap.
+  - Árak pennyben (GBP) tárolva, az árat és a szállítást mindig a szerver számolja
+  - Szállítás: méretkategória (kicsi / közepes / nagy / egyedi) × zóna (UK / EU) díjtáblázat, az adminban szerkeszthető; „egyedi” méret nem vásárolható online (érdeklődés)
+  - Admin → Rendelések: feladandók listája, státusz, futárszolgálat + követési szám (a vevő e-mailt kap), megjegyzés, visszatérítés (Stripe), visszarakás eladhatóra
+  - Jogi oldalak: ÁSZF (`/terms`), elállás és visszaküldés (`/returns`), szállítás és vám (`/delivery`, élő díjtáblázattal), adatvédelem (`/privacy`)
 - **Kapcsolati API** az összes oldalnak: `POST /api/contact` (mentés, e-mail értesítés, spamcsapda, percenként 5 kérés)
 
 ## API
@@ -75,6 +80,12 @@ php artisan app:make-admin valaki@example.com --revoke   # jog elvétele
 | DELETE | `/api/listings/{id}` | ✓ tulajdonos |
 | GET | `/api/my/listings` | ✓ |
 | POST | `/api/contact` (`site`, `name`, `email`, `message`) | – |
+| GET | `/api/shipping` (zónák, díjak) | – |
+| POST | `/api/checkout` (`listing_id`, `country`, `locale`, `accept_terms`) → Stripe URL | – |
+| GET | `/api/checkout/{sessionId}` (rendelés állapota, személyes adat nélkül) | – |
+| POST | `/api/stripe/webhook` (Stripe aláírással) | Stripe |
+| GET · PATCH | `/api/admin/orders[/{id}]` · POST `/api/admin/orders/{id}/refund` | admin |
+| GET · PUT | `/api/admin/shipping-rates` | admin |
 | GET | `/api/admin/stats` | admin |
 | GET | `/api/admin/listings?q=&status=&category=` | admin |
 | GET · POST · PATCH · DELETE | `/api/admin/categories[/{id}]` | admin |
@@ -105,7 +116,31 @@ A kulcsot csak a szerveren lévő `.env`-be írd. Kipróbálás: `php artisan ap
 | `CONTACT_MAIL_TO` | Erre a címre megy értesítés minden új kapcsolati üzenetről (üresen hagyva csak mentjük). Javasolt: `info@adglobalapp.com`. A levélküldést lásd fent. |
 | `REGISTRATION_ENABLED` | Új fiókok regisztrációja (alapból `false`). A frontendben ugyanígy kell állítani: `VITE_REGISTRATION_ENABLED`. Kikapcsolva csak a meglévő fiókok (adminok) lépnek be, a látogatók a hirdetésnél „Érdeklődöm” űrlapon írhatnak (Admin → Üzenetek). |
 | `CONTACT_SITES` | Azok az oldalazonosítók, amelyek üzenetet küldhetnek. |
+| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Stripe kulcsok (lásd lent). |
+| `SHOP_FRONTEND_URL` | Ide tér vissza a vevő a fizetés után (`https://adreuse.uk`). |
+| `SHOP_ORDERS_MAIL_TO` | Új rendelés értesítő címe (üresen: `CONTACT_MAIL_TO`). |
+| `SANCTUM_EXPIRATION` | Bejelentkezés élettartama percben (alap 10080 = 7 nap). |
 | `CORS_ALLOWED_ORIGINS` | A többi oldal domainje vesszővel elválasztva (pl. `https://adlingua.org,https://adglobaltransport.com`), ahonnan a böngésző hívhatja az API-t. |
+
+## Stripe beállítása
+
+1. Stripe fiók az **ADGLOBALAPP LTD** nevére (cégjegyzékszám 15251437), bankszámla, kétlépcsős azonosítás.
+2. Először **teszt módban**: Developers → API keys → `sk_test_...` → a szerveren `STRIPE_SECRET_KEY`.
+3. Developers → Webhooks → *Add endpoint*: `https://api.adreuse.uk/api/stripe/webhook`, események: `checkout.session.completed`, `checkout.session.expired`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`. A *Signing secret* (`whsec_...`) → `STRIPE_WEBHOOK_SECRET`.
+4. Próbavásárlás a `4242 4242 4242 4242` tesztkártyával → Admin → Rendelések.
+5. Admin → Szállítási díjak: a kezdő díjak csak helyőrzők, a futárcég árai alapján írd át.
+6. Élesítés: ugyanez `sk_live_...` kulccsal és az éles módban létrehozott webhookkal.
+
+A kulcsok csak a szerver `.env`-jébe kerülnek – gitbe, image-be, chatbe soha. A kártyaadat sosem érinti a szervert (Stripe-hosted Checkout), a csalásszűrést a Stripe Radar végzi.
+
+## Biztonság
+
+- Spam/botok: Cloudflare Turnstile + rejtett spamcsapda mező + IP-alapú korlátok (`CF-Connecting-IP`): kapcsolat 5/10 perc, fizetés 5/perc és 15/óra, belépés 10/perc IP-nként és 5/perc e-mail címenként
+- Fizetés: ár és szállítás csak szerveroldalon, webhook-aláírás ellenőrzés, idempotens „fizetve” jelölés, foglalás versenyhelyzet ellen (`lockForUpdate`)
+- Feltöltött képek: újrakódolás JPEG-be (GD) – a metaadat (EXIF, GPS) és a képbe rejtett kód eltűnik, véletlen fájlnév
+- Tokenek 7 nap után lejárnak (`SANCTUM_EXPIRATION`)
+- Nginx: biztonsági fejlécek, CSP; PHP csak az `index.php`-n át fut; a frontendeken szigorú CSP (`frontend/security-headers.conf`)
+- CI: tesztek, `composer audit`, `npm audit`; Dependabot heti frissítési PR-ok
 
 ## Tesztek
 

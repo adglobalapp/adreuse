@@ -139,3 +139,17 @@ button.btn {
     text-align: center;
   }
 }
+
+.order-done {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 680px;
+}
+
+.order-done__item {
+  color: var(--color-text-muted);
+}
+
+.order-done__back {
+  margin-top: var(--space-6);
+}

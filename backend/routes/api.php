@@ -3,8 +3,10 @@
 use App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ListingController;
+use App\Http\Controllers\Api\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:auth')->group(function () {
@@ -15,6 +17,12 @@ Route::middleware('throttle:auth')->group(function () {
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
 
 Route::get('/categories', [CategoryController::class, 'index']);
+
+// Webshop: szállítási díjak, fizetés indítása, köszönőoldal, Stripe webhook
+Route::get('/shipping', [CheckoutController::class, 'shipping']);
+Route::post('/checkout', [CheckoutController::class, 'store'])->middleware('throttle:checkout');
+Route::get('/checkout/{sessionId}', [CheckoutController::class, 'status']);
+Route::post('/stripe/webhook', StripeWebhookController::class);
 Route::get('/listings', [ListingController::class, 'index']);
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
@@ -40,5 +48,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/messages', [Admin\MessageController::class, 'index']);
         Route::patch('/messages/{message}', [Admin\MessageController::class, 'update']);
         Route::delete('/messages/{message}', [Admin\MessageController::class, 'destroy']);
+        Route::get('/orders', [Admin\OrderController::class, 'index']);
+        Route::patch('/orders/{order}', [Admin\OrderController::class, 'update']);
+        Route::post('/orders/{order}/refund', [Admin\OrderController::class, 'refund']);
+        Route::get('/shipping-rates', [Admin\ShippingRateController::class, 'index']);
+        Route::put('/shipping-rates', [Admin\ShippingRateController::class, 'update']);
     });
 });

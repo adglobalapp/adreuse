@@ -11,6 +11,7 @@ export function Overview() {
   if (!data) return <p className="notice">{t.common.loading}</p>;
 
   const tiles = [
+    { value: data.orders_to_ship, label: t.admin.stats.toShip, to: '/admin/orders?status=paid' },
     { value: data.listings_active, label: t.admin.stats.active, to: '/admin/listings?status=active' },
     { value: data.listings_sold, label: t.admin.stats.sold, to: '/admin/listings?status=sold' },
     { value: data.listings_last_7_days, label: t.admin.stats.week, to: '/admin/listings' },

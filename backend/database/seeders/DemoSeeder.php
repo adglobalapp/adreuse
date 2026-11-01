@@ -29,22 +29,23 @@ class DemoSeeder extends Seeder
         }
 
         $samples = [
-            ['electronics', 'Használt laptop, 14"', 85000, 'good', 'Budapest'],
-            ['electronics', 'Bluetooth fejhallgató', 12000, 'like_new', 'Debrecen'],
-            ['furniture', 'Tölgyfa étkezőasztal', 45000, 'good', 'Szeged'],
-            ['furniture', 'Irodai szék', 9000, 'fair', 'Budapest'],
-            ['clothing', 'Téli kabát, M méret', 15000, 'like_new', 'Győr'],
-            ['books', 'Regénycsomag (10 db)', 5000, 'good', 'Pécs'],
-            ['sports', 'Országúti kerékpár', 120000, 'good', 'Budapest'],
-            ['sports', 'Jógaszőnyeg', 3000, 'new', 'Miskolc'],
-            ['home-garden', 'Fűnyíró', 30000, 'fair', 'Kecskemét'],
-            ['kids', 'Babakocsi', 25000, 'good', 'Székesfehérvár'],
-            ['kids', 'LEGO doboz', 8000, 'like_new', 'Budapest'],
-            ['other', 'Bakelit lemezek', 18000, 'good', 'Eger'],
+            ['electronics', 'Használt laptop, 14"', 8500, 'good', 'London'],
+            ['electronics', 'Bluetooth fejhallgató', 1500, 'like_new', 'Manchester'],
+            ['furniture', 'Tölgyfa étkezőasztal', 12000, 'good', 'Leeds'],
+            ['furniture', 'Irodai szék', 2500, 'fair', 'London'],
+            ['clothing', 'Téli kabát, M méret', 3000, 'like_new', 'Bristol'],
+            ['books', 'Regénycsomag (10 db)', 1200, 'good', 'Liverpool'],
+            ['sports', 'Országúti kerékpár', 25000, 'good', 'London'],
+            ['sports', 'Jógaszőnyeg', 800, 'new', 'Preston'],
+            ['home-garden', 'Fűnyíró', 6000, 'fair', 'Chorley'],
+            ['kids', 'Babakocsi', 4500, 'good', 'Bolton'],
+            ['kids', 'LEGO doboz', 2000, 'like_new', 'London'],
+            ['other', 'Bakelit lemezek', 3500, 'good', 'York'],
         ];
 
         foreach ($samples as [$slug, $title, $price, $condition, $location]) {
             Listing::factory()->for($demo)->create([
+                'shipping_size' => $price > 10000 ? 'large' : ($price > 3000 ? 'medium' : 'small'),
                 'category_id' => Category::where('slug', $slug)->value('id'),
                 'title' => $title,
                 'description' => 'Demó hirdetés – a leírás helye. Állapot, méret, átvételi lehetőségek.',

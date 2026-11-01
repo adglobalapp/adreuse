@@ -69,3 +69,7 @@
     gap: var(--space-6);
   }
 }
+
+.detail__buy {
+  margin-bottom: var(--space-6);
+}

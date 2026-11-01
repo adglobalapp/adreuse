@@ -35,6 +35,12 @@ return [
         ],
     ],
 
+    'stripe' => [
+        // Titkos kulcs (sk_test_... / sk_live_...) és a webhook aláíró kulcsa (whsec_...).
+        'secret' => env('STRIPE_SECRET_KEY'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
     'turnstile' => [
         // Cloudflare Turnstile titkos kulcs (a nyilvános site key a frontendek buildjébe kerül).
         'secret_key' => env('TURNSTILE_SECRET_KEY'),

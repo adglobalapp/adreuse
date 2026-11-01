@@ -255,3 +255,131 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.aorders {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.aorder {
+  border: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-raised);
+}
+
+.aorder--paid {
+  border-left-color: var(--color-brand-500);
+}
+
+.aorder__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.aorder__title {
+  flex: 1 1 200px;
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.aorder__total {
+  font-variant-numeric: tabular-nums;
+}
+
+.aorder__date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.aorder__body {
+  display: grid;
+  gap: var(--space-5);
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+.aorder__cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.aorder__cols h4 {
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.aorder__cols p {
+  margin-top: var(--space-2);
+  overflow-wrap: anywhere;
+}
+
+.aorder__cols a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.aorder__address {
+  white-space: pre-line;
+}
+
+.aorder__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.aorder__note,
+.aorder__form .aactions {
+  grid-column: 1 / -1;
+}
+
+.aorder__danger {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.ashipping {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ashipping__title {
+  font-size: var(--font-size-xl);
+}
+
+.ashipping__lead {
+  max-width: 680px;
+  color: var(--color-text-muted);
+}
+
+.ashipping__input {
+  width: 110px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .aorder__cols,
+  .aorder__form {
+    grid-template-columns: 1fr;
+  }
+}

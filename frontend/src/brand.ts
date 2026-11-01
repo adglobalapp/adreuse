@@ -15,7 +15,7 @@ export const brand = {
   logoSrc: '' as string,
 
   email: 'info@adglobalapp.com',
-  currency: 'HUF',
+  currency: 'GBP',
 
   social: [
     { label: 'LinkedIn', href: 'https://uk.linkedin.com/company/adglobalapp', icon: 'linkedin' },
