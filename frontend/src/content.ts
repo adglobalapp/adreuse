@@ -2,7 +2,8 @@
 
 export const languages = ['en', 'es', 'hu'] as const;
 export type Lang = (typeof languages)[number];
-export const defaultLang: Lang = 'hu';
+/** Alapnyelv, ha a böngésző nyelve sem spanyol, sem angol (magyar böngészőnél is). */
+export const defaultLang: Lang = 'en';
 
 export const locales: Record<Lang, string> = { hu: 'hu-HU', en: 'en-GB', es: 'es-ES' };
 
