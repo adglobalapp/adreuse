@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # 1) Build: a buildgép saját architektúráján fut (gyors), a kimenet sima statikus fájl.
-FROM --platform=$BUILDPLATFORM node:22-alpine AS build
+FROM --platform=$BUILDPLATFORM node:26-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
