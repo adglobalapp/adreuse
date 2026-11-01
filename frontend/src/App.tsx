@@ -31,7 +31,11 @@ export function App() {
 
   // Oldalváltáskor a lap tetejére ugrunk
   const { t } = useI18n();
-  useLayoutEffect(() => window.scrollTo({ top: 0, behavior: 'instant' }), [pathname]);
+  // Blokk-törzs kell: az újabb böngészőkben a scrollTo Promise-t ad vissza, és ha az
+  // effekt ezt visszaadná, a React takarító függvénynek hinné ("is not a function").
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
 
   return (
     <div className="app">
