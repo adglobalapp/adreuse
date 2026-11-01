@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { useI18n } from './i18n';
 import { Navigate, Route, Routes, useLocation } from 'react-router';
 import { Footer } from './components/Footer';
 import { registrationEnabled } from './features';
@@ -28,12 +30,14 @@ export function App() {
   const { pathname } = useLocation();
 
   // Oldalváltáskor a lap tetejére ugrunk
-  useEffect(() => window.scrollTo({ top: 0 }), [pathname]);
+  const { t } = useI18n();
+  useLayoutEffect(() => window.scrollTo({ top: 0, behavior: 'instant' }), [pathname]);
 
   return (
     <div className="app">
       <Header />
       <main>
+        <ErrorBoundary resetKey={pathname} message={t.common.error} reloadLabel={t.common.reload}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/listings" element={<Browse />} />
@@ -60,6 +64,7 @@ export function App() {
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </ErrorBoundary>
       </main>
       <Footer />
     </div>
