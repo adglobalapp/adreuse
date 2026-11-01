@@ -21,9 +21,12 @@ class ListingResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'price' => $this->price,
+            'price' => $this->price, // penny
             'currency' => $this->currency,
             'condition' => $this->condition,
+            'shipping_size' => $this->shipping_size,
+            // Online megvásárolható-e most (aktív, nem egyedi méretű, nincs folyamatban lévő fizetés)
+            'purchasable' => $this->isPurchasable(),
             'location' => $this->location,
             'status' => $this->status,
             'image_url' => $this->image_path ? Storage::disk('public')->url($this->image_path) : null,

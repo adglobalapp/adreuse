@@ -6,13 +6,19 @@ export type User = { id: number; name: string; email: string; is_admin: boolean 
 
 export type Category = { id: number; slug: string; name: string; position?: number; listings_count?: number };
 
+export type ShippingSize = 'small' | 'medium' | 'large' | 'custom';
+
 export type Listing = {
   id: number;
   title: string;
   description: string;
+  /** Ár pennyben (minor unit). */
   price: number;
   currency: string;
   condition: Condition;
+  shipping_size: ShippingSize;
+  /** Most megvásárolható-e online (aktív, nem egyedi méretű, nincs folyamatban lévő fizetés). */
+  purchasable: boolean;
   location: string | null;
   status: 'active' | 'sold';
   image_url: string | null;
@@ -42,6 +48,8 @@ export type ListingFilters = {
 };
 
 export type AdminStats = {
+  orders_to_ship: number;
+  orders_total: number;
   users: number;
   listings_active: number;
   listings_sold: number;
@@ -60,6 +68,38 @@ export type ContactMessage = {
   message: string;
   read: boolean;
   created_at: string;
+};
+
+export type ShippingRate = { size: Exclude<ShippingSize, 'custom'>; zone: string; amount: number };
+
+export type ShippingInfo = { currency: string; zones: Record<string, string[]>; rates: ShippingRate[] };
+
+export type OrderStatus = 'pending' | 'paid' | 'shipped' | 'delivered' | 'cancelled' | 'refunded' | 'expired';
+
+export type AdminOrder = {
+  id: number;
+  reference: string;
+  status: OrderStatus;
+  listing_id: number | null;
+  item_title: string;
+  currency: string;
+  item_amount: number;
+  shipping_amount: number;
+  total_amount: number;
+  shipping_size: ShippingSize;
+  shipping_zone: string;
+  country: string;
+  locale: string;
+  customer_name: string | null;
+  customer_email: string | null;
+  customer_phone: string | null;
+  shipping_address: Record<string, string> | null;
+  carrier: string | null;
+  tracking_number: string | null;
+  admin_note: string | null;
+  created_at: string;
+  paid_at: string | null;
+  shipped_at: string | null;
 };
 
 const BASE_URL = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '') + '/api';
@@ -131,6 +171,14 @@ export const api = {
 
   listings: (filters: ListingFilters = {}) => request<Paginated<Listing>>(`/listings${query(filters)}`),
   myListings: () => request<Paginated<Listing>>('/my/listings'),
+  shipping: () => request<{ data: ShippingInfo }>('/shipping').then((r) => r.data),
+  /** Fizetés indítása: a válaszban a Stripe fizetőoldalának címe. */
+  checkout: (data: { listing_id: number; country: string; locale: string; accept_terms: boolean }) =>
+    request<{ data: { url: string; reference: string } }>('/checkout', { method: 'POST', body: json(data) }).then((r) => r.data),
+  checkoutStatus: (sessionId: string) =>
+    request<{ data: { reference: string; status: OrderStatus; item_title: string; currency: string; total_amount: number } }>(
+      `/checkout/${encodeURIComponent(sessionId)}`,
+    ).then((r) => r.data),
   listing: (id: string | number) => request<{ data: Listing }>(`/listings/${id}`).then((r) => r.data),
   createListing: (form: FormData) =>
     request<{ data: Listing }>('/listings', { method: 'POST', body: form }).then((r) => r.data),
@@ -161,5 +209,14 @@ export const api = {
     setRead: (id: number, read: boolean) =>
       request<{ data: ContactMessage }>(`/admin/messages/${id}`, { method: 'PATCH', body: json({ read }) }).then((r) => r.data),
     deleteMessage: (id: number) => request<void>(`/admin/messages/${id}`, { method: 'DELETE' }),
+    orders: (filters: { status?: string; q?: string; page?: string } = {}) =>
+      request<Paginated<AdminOrder> & { meta: { to_ship: number } }>(`/admin/orders${query(filters)}`),
+    updateOrder: (id: number, data: Partial<Pick<AdminOrder, 'status' | 'carrier' | 'tracking_number' | 'admin_note'>> & { restock?: boolean }) =>
+      request<{ data: AdminOrder }>(`/admin/orders/${id}`, { method: 'PATCH', body: json(data) }).then((r) => r.data),
+    refundOrder: (id: number, restock: boolean) =>
+      request<{ data: AdminOrder }>(`/admin/orders/${id}/refund`, { method: 'POST', body: json({ restock }) }).then((r) => r.data),
+    shippingRates: () => request<{ data: { currency: string; rates: ShippingRate[] } }>('/admin/shipping-rates').then((r) => r.data),
+    saveShippingRates: (rates: ShippingRate[]) =>
+      request<{ data: { currency: string; rates: ShippingRate[] } }>('/admin/shipping-rates', { method: 'PUT', body: json({ rates }) }).then((r) => r.data),
   },
 };

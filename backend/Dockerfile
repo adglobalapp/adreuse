@@ -13,12 +13,12 @@ RUN composer dump-autoload --no-dev --optimize --no-scripts
 # 2) Futtatókörnyezet
 FROM php:8.3-fpm-alpine
 
-# PHP-kiterjesztések a hivatalos image saját eszközével (mbstring alapból benne van)
+# PHP-kiterjesztések a hivatalos image saját eszközével (mbstring alapból benne van; gd + exif a képek újrakódolásához)
 RUN apk add --no-cache nginx su-exec icu-libs libzip libpng libjpeg-turbo libwebp freetype \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev libzip-dev libpng-dev \
         libjpeg-turbo-dev libwebp-dev freetype-dev \
     && docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype \
-    && docker-php-ext-install -j"$(nproc)" pdo_mysql intl zip bcmath opcache gd \
+    && docker-php-ext-install -j"$(nproc)" pdo_mysql intl zip bcmath opcache gd exif \
     && apk del .build-deps \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log

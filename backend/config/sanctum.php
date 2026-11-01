@@ -50,7 +50,8 @@ return [
     |
     */
 
-    'expiration' => null,
+    // A belépési tokenek ennyi perc után lejárnak (alapból 7 nap)
+    'expiration' => (int) env('SANCTUM_EXPIRATION', 10080),
 
     /*
     |--------------------------------------------------------------------------

@@ -4,6 +4,7 @@ import { api, type ListingFilters } from '../api';
 import { ListingGrid } from '../components/ListingCard';
 import { PageHead } from '../components/PageHead';
 import type { Condition } from '../content';
+import { toMinor } from '../format';
 import { useI18n } from '../i18n';
 import { useAsync } from '../useAsync';
 import './Browse.css';
@@ -19,7 +20,12 @@ export function Browse() {
   );
 
   const categories = useAsync(() => api.categories(), []);
-  const listings = useAsync(() => api.listings(filters), [params.toString()]);
+  // Az árszűrő fontban van az URL-ben, az API pennyt vár
+  const penny = (v?: string) => (v ? String(toMinor(v) ?? '') || undefined : undefined);
+  const listings = useAsync(
+    () => api.listings({ ...filters, min_price: penny(filters.min_price), max_price: penny(filters.max_price) }),
+    [params.toString()],
+  );
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,11 +79,11 @@ export function Browse() {
         </label>
         <label className="field">
           <span>{t.browse.minPrice}</span>
-          <input name="min_price" type="number" min={0} defaultValue={filters.min_price} />
+          <input name="min_price" type="number" min={0} step="any" defaultValue={filters.min_price} />
         </label>
         <label className="field">
           <span>{t.browse.maxPrice}</span>
-          <input name="max_price" type="number" min={0} defaultValue={filters.max_price} />
+          <input name="max_price" type="number" min={0} step="any" defaultValue={filters.max_price} />
         </label>
         <label className="field">
           <span>{t.browse.sort}</span>

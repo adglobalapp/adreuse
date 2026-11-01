@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { api, ApiError } from '../api';
 import { useAuth } from '../auth';
 import { Icon } from '../components/Icon';
@@ -17,6 +17,7 @@ export function ListingDetail() {
   const { lang, t } = useI18n();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   const [busy, setBusy] = useState(false);
   // user.id a függőségben: belépés után újratöltünk, hogy látszódjon az eladó e-mail címe
   const { data: listing, error, loading, setData } = useAsync(() => api.listing(id), [id, user?.id]);
@@ -74,6 +75,10 @@ export function ListingDetail() {
               </div>
             )}
             <div>
+              <dt>{t.listing.shippingFrom}</dt>
+              <dd>{t.sizes[listing.shipping_size]}</dd>
+            </div>
+            <div>
               <dt>{t.listing.posted}</dt>
               <dd>{formatDate(listing.created_at, lang)}</dd>
             </div>
@@ -84,6 +89,20 @@ export function ListingDetail() {
           </dl>
 
           <p className="detail__desc">{listing.description}</p>
+
+          {params.get('checkout') === 'cancelled' && <p className="notice">{t.listing.checkoutCancelled}</p>}
+
+          {listing.status === 'active' && !listing.can_manage && (
+            <div className="detail__buy">
+              {listing.purchasable ? (
+                <Link to={`/checkout/${listing.id}`} className="btn btn--primary">
+                  {t.listing.buyNow} <Icon name="arrow" size={16} />
+                </Link>
+              ) : (
+                <p className="notice">{listing.shipping_size === 'custom' ? t.listing.customShipping : t.listing.reserved}</p>
+              )}
+            </div>
+          )}
 
           {listing.can_manage ? (
             <div className="btn-row">

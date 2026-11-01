@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\ContactMessage;
 use App\Models\Listing;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
@@ -19,6 +20,8 @@ class StatsController extends Controller
             'listings_sold' => Listing::where('status', 'sold')->count(),
             'listings_last_7_days' => Listing::where('created_at', '>=', now()->subDays(7))->count(),
             'categories' => Category::count(),
+            'orders_to_ship' => Order::where('status', 'paid')->count(),
+            'orders_total' => Order::whereNotIn('status', ['pending', 'expired'])->count(),
             'messages_unread' => ContactMessage::whereNull('read_at')->count(),
         ]]);
     }

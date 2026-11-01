@@ -19,6 +19,7 @@ class UpdateListingRequest extends FormRequest
             'description' => ['sometimes', 'string', 'max:5000'],
             'price' => ['sometimes', 'integer', 'min:0', 'max:100000000'],
             'condition' => ['sometimes', Rule::in(Listing::CONDITIONS)],
+            'shipping_size' => ['sometimes', Rule::in(Listing::SHIPPING_SIZES)],
             'location' => ['sometimes', 'nullable', 'string', 'max:120'],
             'status' => ['sometimes', Rule::in(Listing::STATUSES)],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],

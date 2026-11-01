@@ -17,8 +17,9 @@ class StoreListingRequest extends FormRequest
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'title' => ['required', 'string', 'min:3', 'max:120'],
             'description' => ['required', 'string', 'max:5000'],
-            'price' => ['required', 'integer', 'min:0', 'max:100000000'],
+            'price' => ['required', 'integer', 'min:0', 'max:100000000'], // penny
             'condition' => ['required', Rule::in(Listing::CONDITIONS)],
+            'shipping_size' => ['sometimes', Rule::in(Listing::SHIPPING_SIZES)],
             'location' => ['nullable', 'string', 'max:120'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ];

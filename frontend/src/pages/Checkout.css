@@ -1,0 +1,128 @@
+.checkout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.checkout__main {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.checkout__item {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.checkout__title {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xl);
+  overflow-wrap: anywhere;
+}
+
+.checkout__meta {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.checkout__info {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.checkout__info h3 {
+  margin-top: var(--space-5);
+  font-size: var(--font-size-md);
+}
+
+.checkout__info h3:first-child {
+  margin-top: 0;
+}
+
+.checkout__info p {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.checkout__info a,
+.checkout__accept a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.checkout__summary {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-4));
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-raised);
+}
+
+.checkout__summary dl {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.checkout__summary dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.checkout__summary dt {
+  color: var(--color-text-muted);
+}
+
+.checkout__summary dd {
+  margin: 0;
+}
+
+.checkout__total {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-black);
+}
+
+.checkout__total dt {
+  color: var(--color-text);
+}
+
+.checkout__accept {
+  align-items: flex-start;
+  font-size: var(--font-size-sm);
+}
+
+.checkout__accept input {
+  margin-top: 0.2em;
+}
+
+.checkout__pay {
+  width: 100%;
+}
+
+.checkout__secure {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+@media (max-width: 860px) {
+  .checkout {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout__summary {
+    position: static;
+  }
+}

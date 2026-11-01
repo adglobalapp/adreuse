@@ -10,6 +10,10 @@ import { AdminListings } from './pages/admin/AdminListings';
 import { AdminMessages } from './pages/admin/AdminMessages';
 import { AdminUsers } from './pages/admin/AdminUsers';
 import { Overview } from './pages/admin/Overview';
+import { AdminOrders } from './pages/admin/AdminOrders';
+import { AdminShipping } from './pages/admin/AdminShipping';
+import { Checkout } from './pages/Checkout';
+import { OrderSuccess } from './pages/OrderSuccess';
 import { AuthPage } from './pages/Auth';
 import { Browse } from './pages/Browse';
 import { Home } from './pages/Home';
@@ -17,6 +21,7 @@ import { ListingDetail } from './pages/ListingDetail';
 import { ListingForm } from './pages/ListingForm';
 import { MyListings } from './pages/MyListings';
 import { NotFound } from './pages/NotFound';
+import { LegalPage } from './components/LegalPage';
 import { Privacy } from './components/Privacy';
 
 export function App() {
@@ -38,6 +43,8 @@ export function App() {
           <Route path="/my" element={<RequireAuth><MyListings /></RequireAuth>} />
           <Route path="/admin" element={<RequireAuth admin><Admin /></RequireAuth>}>
             <Route index element={<Overview />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="shipping" element={<AdminShipping />} />
             <Route path="listings" element={<AdminListings />} />
             <Route path="categories" element={<AdminCategories />} />
             <Route path="users" element={<AdminUsers />} />
@@ -46,6 +53,11 @@ export function App() {
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/register" element={registrationEnabled ? <AuthPage mode="register" /> : <Navigate to="/login" replace />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<LegalPage doc="terms" />} />
+          <Route path="/returns" element={<LegalPage doc="returns" />} />
+          <Route path="/delivery" element={<LegalPage doc="delivery" />} />
+          <Route path="/checkout/:id" element={<Checkout />} />
+          <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
