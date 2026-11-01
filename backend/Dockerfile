@@ -11,7 +11,7 @@ COPY . .
 RUN composer dump-autoload --no-dev --optimize --no-scripts
 
 # 2) Futtatókörnyezet
-FROM php:8.3-fpm-alpine
+FROM php:8.5-fpm-alpine
 
 # PHP-kiterjesztések a hivatalos image saját eszközével (mbstring alapból benne van; gd + exif a képek újrakódolásához)
 RUN apk add --no-cache nginx su-exec icu-libs libzip libpng libjpeg-turbo libwebp freetype \
